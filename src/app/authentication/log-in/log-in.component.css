@@ -1,0 +1,30 @@
+.log-in-page {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    height: 115vh;
+    /* Faz o contêiner ocupar 100% da altura da tela */
+    background-color: #f0f0f0;
+}
+
+.login-card {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    /* Centraliza o conteúdo verticalmente */
+    width: 50vh;
+    /* Define 50% da largura da tela */
+    overflow-y: auto;
+    /* Habilita rolagem vertical caso o conteúdo exceda */
+    background-color: white;
+}
+
+.p-fields,
+.p-field-checkbox {
+    margin-bottom: 35px;
+}
+
+.company-name{
+    margin-bottom: 50px;
+}
