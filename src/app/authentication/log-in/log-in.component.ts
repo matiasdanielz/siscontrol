@@ -14,7 +14,7 @@ export class LogInComponent {
   }
 
   protected logIn(){
-    
+    this.route.navigate(['/', 'Portal']);
   }
 
   protected moveToSignInPage(){
