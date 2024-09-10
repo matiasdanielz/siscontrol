@@ -1,0 +1,23 @@
+<p-menubar
+    [model]="menuItems">
+    <ng-template 
+        pTemplate="item" 
+        let-item 
+        let-root="root">
+        <a 
+            pRipple 
+            class="flex align-items-center p-menuitem-link">
+            <span 
+                [class]="item.icon">
+            </span>
+            <span 
+                class="ml-2">
+                {{ item.label }}
+            </span>
+            <i 
+                *ngIf="item.items"
+                [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']">
+            </i>
+        </a>
+    </ng-template>
+</p-menubar>
