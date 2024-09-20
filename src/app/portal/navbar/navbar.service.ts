@@ -14,54 +14,31 @@ export class NavbarService {
   public getMenuItems(): MenuItem[]{
     return [
       {
-        label: 'Home',
-        icon: 'pi pi-home'
+        label: 'Clientes',
+        icon: 'pi pi-user',
+        command: () => {
+          this.route.navigate(['/', 'Customers']);
+        }
       },
       {
-        label: 'Features',
-        icon: 'pi pi-star'
-      },
-      {
-        label: 'Projects',
-        icon: 'pi pi-search',
+        label: 'Faturamento',
+        icon: 'pi pi-money-bill',
         items: [
           {
-            label: 'Core',
-            icon: 'pi pi-bolt',
+            label: 'Pedidos De Venda',
+            icon: 'pi pi-shop',
+            command: () => {
+              this.route.navigate(['/', 'SalesRequests']);
+            }
           },
           {
-            label: 'Blocks',
-            icon: 'pi pi-server',
+            label: 'Produtos',
+            icon: 'pi pi-shopping-cart',
+            command: () => {
+              this.route.navigate(['/', 'Products']);
+            }
           },
-          {
-            label: 'UI Kit',
-            icon: 'pi pi-pencil',
-          },
-          {
-            separator: true
-          },
-          {
-            label: 'Templates',
-            icon: 'pi pi-palette',
-            items: [
-              {
-                label: 'Apollo',
-                icon: 'pi pi-palette',
-                badge: '2'
-              },
-              {
-                label: 'Ultima',
-                icon: 'pi pi-palette',
-                badge: '3'
-              }
-            ]
-          }
         ]
-      },
-      {
-        label: 'Contact',
-        icon: 'pi pi-envelope',
-        badge: '3'
       },
       {
         label: 'Sair',
@@ -75,6 +52,6 @@ export class NavbarService {
   }
 
   private signOut(){
-    this.route.navigate(['/', 'LogIn'])
+    this.route.navigate(['/', 'LogIn']);
   }
 }
