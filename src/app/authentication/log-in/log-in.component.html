@@ -3,10 +3,10 @@
   class="log-in-page">
   <h1
     class="company-name">
-    Estancia Paraizo
+    Solução Condominios
   </h1>
   <p-card
-    class="login-card ml-4 mr-4"
+    class="log-in-card mb-3"
     header="Login">
     <div
       class="p-fluid">
@@ -36,32 +36,12 @@
         </p-floatLabel>
       </div>
       <div
-        class="p-field-checkbox">
-        <p-checkbox
-          inputId="remember"
-          binary="true">
-        </p-checkbox>
-        <label
-          for="remember">
-          Remember me
-        </label>
-      </div>
-
-      <div
         class="p-fields">
         <p-button
           label="Login"
-          class="p-button-success col-4"
+          class="p-button-success"
           (onClick)="logIn()">
         </p-button>
-        <div class="mt-3">
-          <p-button
-            [text]="true"
-            label="Cadastrar-se"
-            class="p-button-success mt-3"
-            (onClick)="moveToSignInPage()">
-          </p-button>
-        </div>
       </div>
     </div>
   </p-card>

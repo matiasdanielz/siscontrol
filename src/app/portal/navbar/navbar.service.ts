@@ -14,40 +14,20 @@ export class NavbarService {
   public getMenuItems(): MenuItem[]{
     return [
       {
-        label: 'Clientes',
-        icon: 'pi pi-user',
+        label: 'Inicio',
+        icon: 'pi pi-home',
         command: () => {
-          this.route.navigate(['/', 'Customers']);
+          this.route.navigate(['/', 'Neighborhoods']);
         }
       },
       {
-        label: 'Faturamento',
-        icon: 'pi pi-money-bill',
-        items: [
-          {
-            label: 'Pedidos De Venda',
-            icon: 'pi pi-shop',
-            command: () => {
-              this.route.navigate(['/', 'SalesRequests']);
-            }
-          },
-          {
-            label: 'Produtos',
-            icon: 'pi pi-shopping-cart',
-            command: () => {
-              this.route.navigate(['/', 'Products']);
-            }
-          },
-        ]
+        label: 'Sincronização',
+        icon: 'pi pi-sync',
       },
       {
-        label: 'Sair',
-        icon: 'pi pi-sign-out',
-        badge: '3',
-        command: () => {
-          this.signOut();
-        }
-      }
+        label: 'FAQ',
+        icon: 'pi pi-file',
+      },
     ];
   }
 

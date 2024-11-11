@@ -12,7 +12,5 @@ export class AppComponent {
   constructor(
     private router: Router
   ){
-    const routes = this.router.config;
-    console.log(routes);
   }
 }

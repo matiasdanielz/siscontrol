@@ -14,10 +14,17 @@
                 class="ml-2">
                 {{ item.label }}
             </span>
-            <i 
-                *ngIf="item.items"
-                [ngClass]="['pi', root ? 'pi-angle-down ml-2' : 'pi-angle-right ml-auto']">
-            </i>
         </a>
+    </ng-template>
+    <ng-template 
+        pTemplate="end">
+        <div 
+            class="flex align-items-center gap-2">
+            <p-button 
+                label="Sair" 
+                [text]="true"
+                icon="pi pi-sign-out"
+                (onClick)="signOut()"  />
+        </div>
     </ng-template>
 </p-menubar>

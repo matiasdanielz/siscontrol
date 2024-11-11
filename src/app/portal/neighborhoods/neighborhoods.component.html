@@ -1,0 +1,55 @@
+
+<!-- Pagina Principal -->
+<div
+    id="page"
+    class="pl-3 pr-3 background">
+    <h1>
+        Bairros
+    </h1>
+    <p-card
+        class="card">
+        <p-table
+            class="pb-3"
+            [value]="neighborhoodsItems"
+            [columns]="neighborhoodsColumns"
+            styleClass="p-datatable-sm p-datatable-striped">
+            <ng-template 
+                pTemplate="header" 
+                let-columns>
+                <tr>
+                    <th
+                        style="width:10%">
+                    </th>
+                    <th 
+                        *ngFor="let col of columns">
+                        {{ col.label }}
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template 
+                pTemplate="body" 
+                let-neighborhood>
+                <tr>
+                    <td>
+                        <button 
+                            type="button" 
+                            pButton
+                            pRipple
+                            [text]="true"
+                            label="Visualizar"
+                            icon="pi pi-eye" 
+                            (click)="openNeighborhood(neighborhood)">
+                        </button>
+                    </td>
+                    <td>
+                        {{ neighborhood.regiao }}
+                    </td>
+                    <td>
+                        <p-progressBar [value]="neighborhood.utilization" />
+                    </td>
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

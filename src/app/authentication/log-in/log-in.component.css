@@ -8,23 +8,16 @@
     background-color: #f0f0f0;
 }
 
-.login-card {
+.log-in-card {
     display: flex;
     flex-direction: column;
     justify-content: center;
-    /* Centraliza o conteúdo verticalmente */
-    width: 50vh;
-    /* Define 50% da largura da tela */
+    width: 70%;
     overflow-y: auto;
-    /* Habilita rolagem vertical caso o conteúdo exceda */
     background-color: white;
 }
 
 .p-fields,
 .p-field-checkbox {
     margin-bottom: 35px;
-}
-
-.company-name{
-    margin-bottom: 50px;
 }

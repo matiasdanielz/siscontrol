@@ -1,0 +1,56 @@
+
+<!-- Pagina Principal -->
+<div
+    id="page"
+    class="pl-3 pr-3 background">
+    <h1>
+        Condominios
+    </h1>
+    <p-card
+        class="card">
+        <p-table
+            class="pb-3"
+            [value]="condominiumsItems"
+            [columns]="condominiumsColumns"
+            styleClass="p-datatable-sm p-datatable-striped">
+            <ng-template 
+                pTemplate="header" 
+                let-columns>
+                <tr>
+                    <th
+                        style="width:10%">
+                    </th>
+                    <th 
+                        *ngFor="let col of columns">
+                        {{ col.label }}
+                    </th>
+
+                </tr>
+            </ng-template>
+            <ng-template 
+                pTemplate="body" 
+                let-condominium>
+                <tr>
+                    <td>
+                        <button 
+                            type="button" 
+                            pButton
+                            pRipple
+                            [text]="true"
+                            label="Visualizar"
+                            icon="pi pi-eye" 
+                            (click)="openCondominium()">
+                        </button>
+                    </td>
+                    <td>
+                        {{ condominium.condominio }}
+                    </td>
+                    <td>
+                        <p-progressBar [value]="condominium.utilization" />
+                    </td>
+
+                </tr>
+            </ng-template>
+        </p-table>
+    </p-card>
+</div>

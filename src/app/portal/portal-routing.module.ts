@@ -1,9 +1,8 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PortalComponent } from './portal/portal.component';
-import { CustomersComponent } from './customers/customers.component';
-import { ProductsComponent } from './invoicing/products/products.component';
-import { SalesRequestsComponent } from './invoicing/sales-requests/sales-requests.component';
+import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
+import { CondominiumsComponent } from './condominiums/condominiums.component';
 
 const routes: Routes = [
 
@@ -12,17 +11,13 @@ const routes: Routes = [
     component: PortalComponent,
     children: [
       {
-        path: 'Customers',
-        component: CustomersComponent
+        path: 'Neighborhoods',
+        component: NeighborhoodsComponent
       },
       {
-        path: 'Products',
-        component: ProductsComponent
+        path: 'Condominiums',
+        component: CondominiumsComponent
       },
-      {
-        path: 'SalesRequests',
-        component: SalesRequestsComponent
-      }
     ]
   },
 ];

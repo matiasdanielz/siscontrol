@@ -4,9 +4,7 @@ import { PortalRoutingModule } from './portal-routing.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { PortalComponent } from './portal/portal.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { CustomersComponent } from './customers/customers.component';
-import { ProductsComponent } from './invoicing/products/products.component';
-import { SalesRequestsComponent } from './invoicing/sales-requests/sales-requests.component';
+import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 
@@ -24,14 +22,14 @@ import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { SelectButtonModule } from 'primeng/selectbutton';
+import { CondominiumsComponent } from './condominiums/condominiums.component';
 
 @NgModule({
   declarations: [
     PortalComponent,
     NavbarComponent,
-    CustomersComponent,
-    ProductsComponent,
-    SalesRequestsComponent
+    NeighborhoodsComponent,
+    CondominiumsComponent
   ],
   imports: [
     CommonModule,
