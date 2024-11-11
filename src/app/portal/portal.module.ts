@@ -7,6 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { CustomersComponent } from './customers/customers.component';
 import { ProductsComponent } from './invoicing/products/products.component';
 import { SalesRequestsComponent } from './invoicing/sales-requests/sales-requests.component';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -20,7 +22,8 @@ import { InputTextModule } from 'primeng/inputtext';
 import { TagModule } from 'primeng/tag';
 import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
-
+import { DialogModule } from 'primeng/dialog';
+import { SelectButtonModule } from 'primeng/selectbutton';
 
 @NgModule({
   declarations: [
@@ -44,7 +47,11 @@ import { ProgressBarModule } from 'primeng/progressbar';
     InputTextModule,
     TagModule,
     BadgeModule,
-    ProgressBarModule
+    ProgressBarModule,
+    DialogModule,
+    BrowserAnimationsModule,
+    SelectButtonModule,
+    FormsModule
   ]
 })
 export class PortalModule { }

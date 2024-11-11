@@ -1,0 +1,7 @@
+<?xml version='1.0' encoding='utf-8'?>
+<resources>
+    <string name="app_name">siscontrol</string>
+    <string name="title_activity_main">siscontrol</string>
+    <string name="package_name">com.matiasdaniel.siscontrol</string>
+    <string name="custom_url_scheme">com.matiasdaniel.siscontrol</string>
+</resources>

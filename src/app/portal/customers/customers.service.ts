@@ -2,7 +2,9 @@ import { Injectable } from '@angular/core';
 
 interface column{
   property: string,
-  label: string
+  label: string,
+  field: string,
+  header: string
 }
 
 @Injectable({
@@ -16,15 +18,21 @@ export class CustomersService {
     return [
       {
         property: 'id',
-        label: 'Id'
+        label: 'Id',
+        field: 'id',
+        header: 'Id'
       },
       {
         property: 'name',
-        label: 'Nome'
+        label: 'Nome',
+        field: 'name',
+        header: 'Nome'
       },
       {
         property: 'type',
         label: 'Tipo',
+        field: 'type',
+        header: 'Tipo'
       }
     ];
   }
