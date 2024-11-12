@@ -3,6 +3,7 @@ import { RouterModule, Routes } from '@angular/router';
 import { PortalComponent } from './portal/portal.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { CondominiumsComponent } from './condominiums/condominiums.component';
+import { CondominiumComponent } from './condominium/condominium.component';
 
 const routes: Routes = [
 
@@ -17,6 +18,10 @@ const routes: Routes = [
       {
         path: 'Condominiums',
         component: CondominiumsComponent
+      },
+      {
+        path: 'Condominium',
+        component: CondominiumComponent
       },
     ]
   },

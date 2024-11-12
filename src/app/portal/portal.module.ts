@@ -7,6 +7,8 @@ import { NavbarComponent } from './navbar/navbar.component';
 import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
+import { CondominiumsComponent } from './condominiums/condominiums.component';
+import { CondominiumComponent } from './condominium/condominium.component';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -14,22 +16,18 @@ import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
 import { PanelModule } from 'primeng/panel';
-import { ToolbarModule } from 'primeng/toolbar';
 import { ButtonModule } from 'primeng/button';
-import { InputTextModule } from 'primeng/inputtext';
-import { TagModule } from 'primeng/tag';
-import { BadgeModule } from 'primeng/badge';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
-import { SelectButtonModule } from 'primeng/selectbutton';
-import { CondominiumsComponent } from './condominiums/condominiums.component';
+import { DataViewModule } from 'primeng/dataview';
 
 @NgModule({
   declarations: [
     PortalComponent,
     NavbarComponent,
     NeighborhoodsComponent,
-    CondominiumsComponent
+    CondominiumsComponent,
+    CondominiumComponent
   ],
   imports: [
     CommonModule,
@@ -40,16 +38,12 @@ import { CondominiumsComponent } from './condominiums/condominiums.component';
     TableModule,
     CardModule,
     PanelModule,
-    ToolbarModule,
     ButtonModule,
-    InputTextModule,
-    TagModule,
-    BadgeModule,
     ProgressBarModule,
     DialogModule,
     BrowserAnimationsModule,
-    SelectButtonModule,
-    FormsModule
+    DataViewModule,
+    FormsModule,
   ]
 })
 export class PortalModule { }

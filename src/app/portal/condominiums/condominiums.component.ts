@@ -23,7 +23,11 @@ export class CondominiumsComponent implements OnInit{
     this.condominiumsItems = await this.condominiums.getCondominiumsItems();
   }
 
-  public openCondominium(){
-    this.route.navigate(['/', 'Condominiums']);
+  public openCondominium(selectedItem: any){
+    this.route.navigate(['/', 'Condominium'], {
+      queryParams: {
+        "condominium": selectedItem['idCond']
+      }
+    });
   }
 }

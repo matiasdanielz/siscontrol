@@ -27,7 +27,7 @@ export class NeighborhoodsComponent implements OnInit{
   public openNeighborhood(selectedItem: any){
     this.route.navigate(['/', 'Condominiums'], {
       queryParams: {
-        "neighborhoodId": selectedItem['id_regiao']
+        "neighborhoodId": selectedItem['idRegiao']
       }
     });
   }

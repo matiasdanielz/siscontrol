@@ -1,0 +1,100 @@
+<!-- Modal De Alteração -->
+<p-dialog
+    header="Editar Apartamento"
+    [(visible)]="isEditApartmentModalOpen"
+    [style]="{ width: '25rem' }">
+</p-dialog>
+
+<!-- Página Principal -->
+<div
+    id="page"
+    class="pl-3 pr-3 background">
+    <h1>
+        {{condominiumTitle}}
+    </h1>
+    <div class="text-lg font-medium text-900 mb-3">
+        Código: {{condominiumId}}
+    </div>
+
+    <p-card>
+        <p-dataView [value]="condominiumValues">
+            <ng-template pTemplate="list" let-values>
+                <div
+                    class="col-12"
+                    *ngFor="let item of values; let first = first"
+                    class="col-12">
+                    <div
+                        class="flex flex-column align-items-center p-4 gap-3"
+                        [ngClass]="{ 'border-top-1 surface-border': !first }">
+
+                        <!-- Número do Apartamento Centralizado no Topo -->
+                        <h3 class="text-center text-900 font-medium w-full mb-4">
+                            Apartamento Nº 543
+                        </h3>
+
+                        <!-- Blocos de Leitura da Água e do Gás -->
+                        <div
+                            class="flex justify-content-evenly align-items-center flex-1 w-full gap-4">
+                            
+                            <!-- Leitura da Água -->
+                            <div class="flex flex-column align-items-center gap-2 text-center">
+                                <img
+                                    src="./assets/images/water.png"
+                                    height="75px"
+                                    alt="Imagem de consumo" />
+                                <div>
+                                    <span class="font-medium text-secondary text-sm">
+                                        Leitura de Água
+                                    </span>
+                                    <div class="text-lg font-medium text-900 mt-2">
+                                        Economia de {{item['economia']}}
+                                    </div>
+                                </div>
+                                <div class="surface-100 p-1" style="border-radius: 30px">
+                                    <span class="text-900 font-medium text-sm">
+                                        Leitura Anterior: {{ item['leitura_anterior'] }}
+                                    </span>
+                                </div>
+                                <div class="flex pt-2">
+                                    <p-button
+                                        icon="pi pi-pencil"
+                                        [outlined]="true"
+                                        label="Editar"
+                                        (click)="openApartmentEditModal()" />
+                                </div>
+                            </div>
+
+                            <!-- Leitura do Gás -->
+                            <div class="flex flex-column align-items-center gap-2 text-center">
+                                <img
+                                    src="./assets/images/fire.png"
+                                    height="75px"
+                                    alt="Imagem de consumo" />
+                                <div>
+                                    <span class="font-medium text-secondary text-sm">
+                                        Leitura de Gás
+                                    </span>
+                                    <div class="text-lg font-medium text-900 mt-2">
+                                        Economia de {{item['economia']}}
+                                    </div>
+                                </div>
+                                <div class="surface-100 p-1" style="border-radius: 30px">
+                                    <span class="text-900 font-medium text-sm">
+                                        Leitura Anterior: {{ item['leitura_anterior'] }}
+                                    </span>
+                                </div>
+                                <div class="flex pt-2">
+                                    <p-button
+                                        icon="pi pi-pencil"
+                                        [outlined]="true"
+                                        label="Editar"
+                                        (click)="openApartmentEditModal()" />
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </ng-template>
+        </p-dataView>
+    </p-card>
+</div>
