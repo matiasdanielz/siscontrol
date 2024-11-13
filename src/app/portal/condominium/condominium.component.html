@@ -2,33 +2,6 @@
 <app-loading-overlay
     *ngIf="isLoading">
 </app-loading-overlay>
-
-<!-- Modal De Alteração -->
-<p-dialog
-    header="Editar Apartamento"
-    [(visible)]="isEditApartmentModalOpen"
-    [style]="{ width: '25rem' }">
-</p-dialog>
-<p-overlayPanel 
-    #overlayPanel>
-    <div 
-        class="text-lg font-medium text-900 mb-3">
-        Nova Leitura
-    </div>
-    <p-floatLabel>
-        <input 
-            id="username" 
-            type="text" 
-            pInputText />
-    </p-floatLabel>
-    <div 
-        class="button-container">
-        <p-button
-            icon="pi pi-confirm"
-            label="Salvar"
-            (click)="openApartmentEditModal($event)" />
-    </div>
-</p-overlayPanel>
 <!-- Página Principal -->
 <div
     id="page"
@@ -40,8 +13,18 @@
         class="text-lg font-medium text-900 mb-3">
         Código: {{condominiumId}}
     </div>
-
     <p-card>
+        <p-iconField 
+            class="w-full"
+            iconPosition="left">
+            <p-inputIcon 
+                styleClass="pi pi-search" />
+            <input
+                class="w-full"
+                type="text" 
+                pInputText 
+                placeholder="Buscar" />
+        </p-iconField>
         <p-dataView 
             [value]="condominiumValues">
             <ng-template 
@@ -58,7 +41,7 @@
                         <!-- Número do Apartamento Centralizado no Topo -->
                         <h3 
                             class="text-center text-900 font-medium w-full mb-4">
-                            Apartamento Nº 543
+                            Apartamento Nº {{item['economia']}}
                         </h3>
 
                         <!-- Blocos de Leitura da Água e do Gás -->
@@ -78,24 +61,15 @@
                                     </span>
                                     <div
                                         class="text-lg font-medium text-900 mt-2">
-                                        Economia de {{item['economia']}}
+                                        Mes Atual {{item['leitura_atual']}}
                                     </div>
                                 </div>
                                 <div 
                                     class="surface-100 p-1"
                                     style="border-radius: 30px">
                                     <span class="text-900 font-medium text-sm">
-                                        Leitura Anterior: {{ item['leitura_anterior']
-                                        }}
+                                        Mes Anterior: {{ item['leitura_anterior']}}
                                     </span>
-                                </div>
-                                <div 
-                                    class="flex pt-2">
-                                    <p-button
-                                        icon="pi pi-pencil"
-                                        [outlined]="true"
-                                        label="Editar"
-                                        (click)="openApartmentEditModal($event)" />
                                 </div>
                             </div>
 
@@ -113,24 +87,15 @@
                                     </span>
                                     <div
                                         class="text-lg font-medium text-900 mt-2">
-                                        Economia de {{item['economia']}}
+                                        Mes Atual {{item['leitura_atual']}}
                                     </div>
                                 </div>
                                 <div 
                                     class="surface-100 p-1"
                                     style="border-radius: 30px">
                                     <span class="text-900 font-medium text-sm">
-                                        Leitura Anterior: {{ item['leitura_anterior']
-                                        }}
+                                        Mes Anterior: {{ item['leitura_anterior']}}
                                     </span>
-                                </div>
-                                <div 
-                                    class="flex pt-2">
-                                    <p-button
-                                        icon="pi pi-pencil"
-                                        [outlined]="true"
-                                        label="Editar"
-                                        (click)="openApartmentEditModal($event)" />
                                 </div>
                             </div>
                         </div>

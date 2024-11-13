@@ -7,12 +7,23 @@
     id="page"
     class="pl-3 pr-3 background">
     <h1>
-        Bairros
+        Regiões
     </h1>
     <p-card
         class="card">
+        <p-iconField 
+            class="w-full"
+            iconPosition="left">
+            <p-inputIcon
+                class="w-full"
+                styleClass="pi pi-search" />
+            <input
+                class="w-full mb-3"
+                type="text" 
+                pInputText 
+                placeholder="Buscar" />
+        </p-iconField>
         <p-table
-            class="pb-3"
             [value]="neighborhoodsItems"
             [columns]="neighborhoodsColumns"
             styleClass="p-datatable-sm p-datatable-striped">

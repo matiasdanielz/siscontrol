@@ -28,7 +28,7 @@ export class CondominiumsService {
     return [
       {
         property: 'condominio',
-        label: 'Bairro'
+        label: 'Condominio'
       },
       {
         property: 'utilization',

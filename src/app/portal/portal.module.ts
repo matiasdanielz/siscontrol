@@ -24,6 +24,8 @@ import { DataViewModule } from 'primeng/dataview';
 import { OverlayPanelModule } from 'primeng/overlaypanel';
 import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
+import { IconFieldModule } from 'primeng/iconfield';
+import { InputIconModule } from 'primeng/inputicon';
 
 @NgModule({
   declarations: [
@@ -52,6 +54,8 @@ import { InputTextModule } from 'primeng/inputtext';
     OverlayPanelModule,
     FloatLabelModule,
     InputTextModule,
+    IconFieldModule,
+    InputIconModule
   ]
 })
 export class PortalModule { }

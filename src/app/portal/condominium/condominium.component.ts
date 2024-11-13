@@ -8,17 +8,12 @@ import { OverlayPanel } from 'primeng/overlaypanel';
   styleUrl: './condominium.component.css'
 })
 export class CondominiumComponent implements OnInit{
-  @ViewChild('overlayPanel', {static: true}) overlayPanel!: OverlayPanel;
-
   //Itens Da Tabela
   protected condominiumValues: any[] =[];
 
   //Titulo e Id da Pagina
   protected condominiumTitle: string = "";
   protected condominiumId: string = "";
-
-  //Modal De Alteração De Apartamento
-  protected isEditApartmentModalOpen: boolean = false;
 
   //Overlay de carregamento
   protected isLoading: boolean = true;
@@ -35,10 +30,5 @@ export class CondominiumComponent implements OnInit{
     this.condominiumId = this.condominiumValues[0]['idCond'];
 
     this.isLoading = false;
-  }
-
-  protected openApartmentEditModal(event: any){
-    this.overlayPanel.toggle(event);
-    //this.isEditApartmentModalOpen = true;
   }
 }

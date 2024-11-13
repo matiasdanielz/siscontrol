@@ -19,7 +19,7 @@ export class NeighborhoodsService {
     return [
       {
         property: 'regiao',
-        label: 'Bairro'
+        label: 'Região'
       },
       {
         property: 'utilization',

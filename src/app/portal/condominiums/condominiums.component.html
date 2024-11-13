@@ -12,6 +12,17 @@
     </h1>
     <p-card
         class="card">
+        <p-iconField 
+            class="w-full"
+            iconPosition="left">
+            <p-inputIcon 
+                styleClass="pi pi-search" />
+            <input
+                class="w-full mb-3"
+                type="text" 
+                pInputText 
+                placeholder="Buscar" />
+        </p-iconField>
         <p-table
             class="pb-3"
             [value]="condominiumsItems"
