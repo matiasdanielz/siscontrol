@@ -12,6 +12,9 @@ export class NeighborhoodsComponent implements OnInit{
   protected neighborhoodsItems: any[] = [];
   protected neighborhoodsColumns: any[] = [];
 
+  //Overlay de carregamento
+  protected isLoading: boolean = true;
+
   constructor(
     private neighborhoodsService: NeighborhoodsService,
     private route: Router
@@ -22,6 +25,8 @@ export class NeighborhoodsComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.neighborhoodsItems = await this.neighborhoodsService.getNeighborhoodsItems();
+
+    this.isLoading = false;
   }
 
   public openNeighborhood(selectedItem: any){

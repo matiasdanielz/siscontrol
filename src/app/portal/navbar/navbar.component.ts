@@ -19,6 +19,7 @@ export class NavbarComponent {
   }
 
   protected signOut(){
+    sessionStorage.clear();
     this.route.navigate(['/', 'LogIn']);
   }
 }

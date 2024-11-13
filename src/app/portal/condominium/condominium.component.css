@@ -14,3 +14,7 @@
     overflow-y: auto; /* Habilita rolagem vertical caso o conteúdo exceda */
     min-width: 100%;
 }
+
+.button-container {
+    margin-top: 1rem; /* Ajuste para o espaçamento desejado */
+}

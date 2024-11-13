@@ -38,7 +38,8 @@ export class CondominiumsService {
   }
 
   public async getCondominiumsItems(){
-    const url: string = "https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=" + this.selectedNeighborhood + "&idUsuario=1";
+    const userId: any = sessionStorage.getItem("userId")?.toString();
+    const url: string = "https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=" + this.selectedNeighborhood + "&idUsuario=" + userId;
 
     const response: any = await this.http.get(url).toPromise();
 

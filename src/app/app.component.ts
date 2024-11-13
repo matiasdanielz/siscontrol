@@ -7,10 +7,16 @@ import { Router } from '@angular/router';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  title = 'siscontrol';
 
-  constructor(
-    private router: Router
-  ){
+  constructor(private router: Router) { }
+
+  ngOnInit(): void {
+    const isLoggedIn = sessionStorage.getItem('isLoggedIn');
+
+    if (isLoggedIn !== 'true') {
+      this.router.navigate(['', 'LogIn']);
+    } else {
+      this.router.navigate(['', 'Neighborhoods']);
+    }
   }
 }

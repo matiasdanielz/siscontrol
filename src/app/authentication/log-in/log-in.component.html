@@ -1,4 +1,11 @@
-
+<!-- Overlay De Carregamento -->
+<app-loading-overlay
+  *ngIf="isLoading">
+</app-loading-overlay>
+<!-- Toast -->
+<p-toast 
+  position="bottom-center"/>
+<!-- Login -->
 <div
   class="log-in-page">
   <h1
@@ -16,7 +23,8 @@
           <input
             id="username"
             type="text"
-            pInputText />
+            pInputText 
+            [(ngModel)]="username"/>
           <label
             for="input">
             Usuario
@@ -28,7 +36,8 @@
         <p-floatLabel>
           <p-password
             [feedback]="false"
-            [toggleMask]="true" />
+            [toggleMask]="true" 
+            [(ngModel)]="password"/>
           <label
             for="password">
             Senha

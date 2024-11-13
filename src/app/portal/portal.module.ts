@@ -9,6 +9,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { CondominiumsComponent } from './condominiums/condominiums.component';
 import { CondominiumComponent } from './condominium/condominium.component';
+import { GenericComponentsModule } from '../generic-components/generic-components.module';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -20,6 +21,9 @@ import { ButtonModule } from 'primeng/button';
 import { ProgressBarModule } from 'primeng/progressbar';
 import { DialogModule } from 'primeng/dialog';
 import { DataViewModule } from 'primeng/dataview';
+import { OverlayPanelModule } from 'primeng/overlaypanel';
+import { FloatLabelModule } from 'primeng/floatlabel';
+import { InputTextModule } from 'primeng/inputtext';
 
 @NgModule({
   declarations: [
@@ -44,6 +48,10 @@ import { DataViewModule } from 'primeng/dataview';
     BrowserAnimationsModule,
     DataViewModule,
     FormsModule,
+    GenericComponentsModule,
+    OverlayPanelModule,
+    FloatLabelModule,
+    InputTextModule,
   ]
 })
 export class PortalModule { }

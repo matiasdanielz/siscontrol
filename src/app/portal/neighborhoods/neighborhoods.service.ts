@@ -29,7 +29,8 @@ export class NeighborhoodsService {
   }
 
   public async getNeighborhoodsItems(){
-    const url: string = "https://conline.solucaoadm.com/api_med?metodo=getRegioes&idUsuario=1"
+    const userId: any = sessionStorage.getItem("userId")?.toString();
+    const url: string = "https://conline.solucaoadm.com/api_med?metodo=getRegioes&idUsuario=" + userId;
 
     const response: any = await this.http.get(url).toPromise();
 

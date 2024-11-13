@@ -11,6 +11,9 @@ export class CondominiumsComponent implements OnInit{
   //Tabela Principal
   protected condominiumsItems: any[] = [];
   protected condominiumsColumns: any[] = [];
+  
+  //Overlay de carregamento
+  protected isLoading: boolean = true;
 
   constructor(
     private condominiums: CondominiumsService,
@@ -21,6 +24,8 @@ export class CondominiumsComponent implements OnInit{
 
   async ngOnInit(): Promise<void> {
     this.condominiumsItems = await this.condominiums.getCondominiumsItems();
+
+    this.isLoading = false;
   }
 
   public openCondominium(selectedItem: any){
