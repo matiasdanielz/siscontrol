@@ -23,10 +23,12 @@
                 class="w-full"
                 type="text" 
                 pInputText 
-                placeholder="Buscar" />
+                placeholder="Buscar" 
+                [(ngModel)]="searchFilter"
+                (input)="filterApartments()"/>
         </p-iconField>
         <p-dataView 
-            [value]="condominiumValues">
+            [value]="filteredApartments">
             <ng-template 
                 pTemplate="list" 
                 let-values>
@@ -41,7 +43,7 @@
                         <!-- Número do Apartamento Centralizado no Topo -->
                         <h3 
                             class="text-center text-900 font-medium w-full mb-4">
-                            Apartamento Nº {{item['economia']}}
+                            Economia Nº {{item['economia']}}
                         </h3>
 
                         <!-- Blocos de Leitura da Água e do Gás -->
@@ -49,29 +51,44 @@
                             class="flex justify-content-between align-items-center w-full">
                             <!-- Leitura da Água -->
                             <div
-                                class="flex flex-column align-items-center gap-2 text-center">
-                                <img
-                                    src="./assets/images/water.png"
-                                    height="75px"
-                                    alt="Imagem de consumo" />
-                                <div>
-                                    <span
-                                        class="font-medium text-secondary text-sm">
-                                        Leitura de Água
-                                    </span>
-                                    <div
-                                        class="text-lg font-medium text-900 mt-2">
-                                        Mes Atual {{item['leitura_atual']}}
-                                    </div>
-                                </div>
-                                <div 
-                                    class="surface-100 p-1"
-                                    style="border-radius: 30px">
-                                    <span class="text-900 font-medium text-sm">
-                                        Mes Anterior: {{ item['leitura_anterior']}}
-                                    </span>
+                            class="flex flex-column align-items-center gap-2 text-center">
+                            <img
+                                src="./assets/images/water.png"
+                                height="75px"
+                                alt="Imagem de consumo" />
+                            <div>
+                                <span
+                                    class="font-medium text-secondary text-sm">
+                                    Leitura de Água
+                                </span>
+                                <div
+                                    class="text-lg font-medium text-900 mt-2">
+                                    Mes Atual: {{item['leitura_atual_agua']}}
                                 </div>
                             </div>
+                            <div 
+                                class="surface-100 p-1"
+                                style="border-radius: 30px">
+                                <span class="text-900 font-medium text-sm">
+                                    Mes Anterior: {{ item['leitura_anterior_agua']}}
+                                </span>
+                            </div>
+                            <!-- Alinhamento à esquerda para o campo de entrada -->
+                            <p-floatLabel
+                                class="col-1 left-aligned-input mt-3">
+                                <input 
+                                  id="username" 
+                                  type="text" 
+                                  pInputText 
+                                  style="width: 8em;" 
+                                  maxlength="5" 
+                                  (blur)="readingChanged(item, $event, 'agua')"/>
+                                <label 
+                                    for="username">
+                                    Nova Leitura
+                                </label>
+                            </p-floatLabel>
+                        </div>
 
                             <!-- Leitura do Gás -->
                             <div
@@ -87,16 +104,31 @@
                                     </span>
                                     <div
                                         class="text-lg font-medium text-900 mt-2">
-                                        Mes Atual {{item['leitura_atual']}}
+                                        Mes Atual: {{item['leitura_atual_gas']}}
                                     </div>
                                 </div>
                                 <div 
                                     class="surface-100 p-1"
                                     style="border-radius: 30px">
                                     <span class="text-900 font-medium text-sm">
-                                        Mes Anterior: {{ item['leitura_anterior']}}
+                                        Mes Anterior: {{ item['leitura_anterior_gas']}}
                                     </span>
                                 </div>
+                                <p-floatLabel
+                                    class="col-1 left-aligned-input mt-3">
+                                    <input 
+                                        id="username" 
+                                        type="text" 
+                                        pInputText 
+                                        style="width: 8em;" 
+                                        maxlength="5"
+                                        (blur)="readingChanged(item, $event, 'gas')"
+                                    />
+                                    <label 
+                                        for="username">
+                                        Nova Leitura
+                                    </label>
+                                </p-floatLabel>
                             </div>
                         </div>
                     </div>

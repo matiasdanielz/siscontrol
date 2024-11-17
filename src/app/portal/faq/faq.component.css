@@ -1,0 +1,15 @@
+.background {
+    flex: 1;
+    display: flex;
+    flex-direction: column;
+    margin: 0 auto;
+    box-sizing: border-box;
+    background-color: #f0f0f0;
+    min-height: 106vh;
+}
+
+.card {
+    flex-grow: 1;
+    overflow-y: auto; /* Habilita rolagem vertical caso o conteúdo exceda */
+    min-width: 100%;
+}

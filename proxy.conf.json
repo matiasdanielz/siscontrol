@@ -1,0 +1,9 @@
+{
+    "/api_med": {
+      "target": "https://conline.solucaoadm.com",
+      "secure": false, 
+      "changeOrigin": true,
+      "logLevel": "debug"
+    }
+  }
+  

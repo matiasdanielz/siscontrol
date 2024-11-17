@@ -16,8 +16,6 @@ export class LogInService {
   ){
     const url: string = 'https://conline.solucaoadm.com/api_med?metodo=efetuaLogin&dadosLogin={"login":"' + username + '","senha":"' + password + '"}';
 
-    console.log(url);
-
     const response: any = await this.http.get(url).toPromise();
 
     return response; 

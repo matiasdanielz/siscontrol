@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { LogInService } from './log-in.service';
 import { MessageService } from 'primeng/api';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-log-in',
@@ -20,38 +21,63 @@ export class LogInComponent implements OnInit{
   constructor(
     private route: Router,
     private logInService: LogInService,
-    private messageService: MessageService
+    private messageService: MessageService,
+    private storage: Storage
   ){
-
+    this.initStorage();
   }
 
   ngOnInit(): void {
     this.isLoading = false;
   }
 
-  protected async logIn() {
-    this.isLoading = true;
-
-    const response = await this.logInService.LogIn(this.username, this.password);
-    
-    if (response != null) {
-      // Armazena o status do usuário logado na sessão
-      sessionStorage.setItem('isLoggedIn', 'true');
-      sessionStorage.setItem('userId', response[0]['idUsuario']);
-      sessionStorage.setItem('username', this.username); // opcional, se quiser armazenar o nome do usuário
-
-      console.log(response['idUsuario']);
-
-      this.route.navigate(['', 'Neighborhoods']);
-    } else {
-      this.messageService.add({
-        severity: 'error',
-        summary: 'Erro',
-        detail: 'Usuario Não Autenticado!',
-        life: 5000,
-      });
-    }
-
-    this.isLoading = false;
+  async initStorage() {
+    await this.storage.create();
   }
+
+  protected async logIn(): Promise<void> {
+    this.isLoading = true;
+    
+    try {
+      const response = await this.logInService.LogIn(this.username, this.password);
+  
+      if (response && Array.isArray(response) && response.length > 0) {
+        const userId: string = response[0]['idUsuario'];
+  
+        await this.setSessionData(userId);
+  
+        this.route.navigate(['', 'Neighborhoods'], {
+          queryParams: { userId }
+        });
+      } else {
+        this.handleLoginError();
+      }
+    } catch (error) {
+      console.error('Erro ao realizar o login', error);
+      this.handleLoginError();
+    } finally {
+      this.isLoading = false;
+    }
+  }
+  
+  private async setSessionData(userId: string): Promise<void> {
+    try {
+      await Promise.all([
+        this.storage.set('isLoggedIn', 'true'),
+        this.storage.set('userId', userId),
+      ]);
+    } catch (error) {
+      console.error('Erro ao salvar dados na sessão', error);
+    }
+  }
+  
+  private handleLoginError(): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: 'Usuário Não Autenticado!',
+      life: 5000,
+    });
+  }
+  
 }

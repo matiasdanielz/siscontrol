@@ -3,48 +3,49 @@
   *ngIf="isLoading">
 </app-loading-overlay>
 <!-- Toast -->
-<p-toast 
-  position="bottom-center"/>
+<p-toast
+  position="bottom-center">
+</p-toast>
 <!-- Login -->
 <div
   class="log-in-page">
-  <h1
-    class="company-name">
-    Solução Condominios
-  </h1>
-  <p-card
-    class="log-in-card mb-3"
+  <img 
+    src="./assets/images/logo.png"
+    height="250px">
+  <p-card 
+    class="log-in-card mb-3" 
     header="Login">
-    <div
+    <div 
       class="p-fluid">
-      <div
+      <div 
         class="p-fields">
         <p-floatLabel>
-          <input
-            id="username"
-            type="text"
+          <input 
+            id="username" 
+            type="text" 
             pInputText 
-            [(ngModel)]="username"/>
-          <label
+            [(ngModel)]="username" />
+          <label 
             for="input">
             Usuario
           </label>
         </p-floatLabel>
       </div>
-      <div
+      <div 
         class="p-fields">
         <p-floatLabel>
           <p-password
             [feedback]="false"
-            [toggleMask]="true" 
-            [(ngModel)]="password"/>
-          <label
+            [toggleMask]="true"
+            [(ngModel)]="password">
+          </p-password>
+          <label 
             for="password">
             Senha
           </label>
         </p-floatLabel>
       </div>
-      <div
+      <div 
         class="p-fields">
         <p-button
           label="Login"

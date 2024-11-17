@@ -1,6 +1,7 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { CondominiumsService } from './condominiums.service';
+import { Storage } from '@ionic/storage-angular';
 
 @Component({
   selector: 'app-condominiums',
@@ -10,29 +11,55 @@ import { CondominiumsService } from './condominiums.service';
 export class CondominiumsComponent implements OnInit{
   //Tabela Principal
   protected condominiumsItems: any[] = [];
+  protected filteredCondominiums: any[] = [];
   protected condominiumsColumns: any[] = [];
   
   //Overlay de carregamento
   protected isLoading: boolean = true;
 
+  //Filtro De Busca
+  protected searchFilter: string = '';
+
   constructor(
     private condominiums: CondominiumsService,
-    private route: Router
+    private route: Router,
+    private storage: Storage
   ){
     this.condominiumsColumns = condominiums.getCondominiumsColumns();
   }
 
   async ngOnInit(): Promise<void> {
     this.condominiumsItems = await this.condominiums.getCondominiumsItems();
+    this.filteredCondominiums = this.condominiumsItems;
 
     this.isLoading = false;
   }
 
-  public openCondominium(selectedItem: any){
+  public async openCondominium(selectedItem: any){
+    const userId: string = await this.storage.get("userId");
+
     this.route.navigate(['/', 'Condominium'], {
       queryParams: {
-        "condominium": selectedItem['idCond']
+        "condominium": selectedItem['idCond'],
+        "userId": userId
       }
     });
+  }
+
+  protected getStatus(status: string): any {
+    switch (status) {
+        case 'Pendente':
+            return 'warning';
+        case 'Concluido':
+            return 'success';
+        default: ''
+
+    }
+  }
+
+  protected filterCondominiums() {
+    this.filteredCondominiums = this.condominiumsItems.filter(item =>
+      item['condominio'].toLowerCase().includes(this.searchFilter.toLowerCase())
+    );
   }
 }

@@ -12,14 +12,17 @@ interface column{
 })
 export class CondominiumsService {
 
-  private selectedNeighborhood: string = ""; 
+  private selectedNeighborhood: string = "";
+  private userId: string = "";
 
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute
+    private route: ActivatedRoute,
+
   ) {
     this.route.queryParams.subscribe(params => {
       this.selectedNeighborhood = params['neighborhoodId'];
+      this.userId = params['userId'];
     });
   }
   
@@ -31,15 +34,15 @@ export class CondominiumsService {
         label: 'Condominio'
       },
       {
-        property: 'utilization',
-        label: 'Utilização'
+        property: 'status',
+        label: 'Medição'
       },
     ];
   }
 
   public async getCondominiumsItems(){
-    const userId: any = sessionStorage.getItem("userId")?.toString();
-    const url: string = "https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=" + this.selectedNeighborhood + "&idUsuario=" + userId;
+
+    const url: string = `/api_med?metodo=getConds&idRegiao=${this.selectedNeighborhood}&idUsuario=${this.userId}`;
 
     const response: any = await this.http.get(url).toPromise();
 

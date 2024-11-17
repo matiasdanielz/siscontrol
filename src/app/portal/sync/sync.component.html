@@ -1,0 +1,20 @@
+<!-- Overlay De Carregamento -->
+<app-loading-overlay *ngIf="isLoading"></app-loading-overlay>
+
+<!-- Pagina Principal -->
+<div
+    id="page"
+    class="flex flex-column align-items-center justify-content-center background">
+    <h1 
+        class="text-center mb-4">
+        {{amountOfSyncPendencies}} Leituras "Penduradas"
+    </h1>
+    <button 
+        type="button" 
+        pButton
+        pRipple
+        label="Sincronizar Pendencias"
+        icon="pi pi-sync"
+        (click)="syncPendencies()">
+    </button>
+</div>

@@ -1,9 +1,11 @@
 import { NgModule } from '@angular/core';
 import { RouterModule, Routes } from '@angular/router';
 import { PortalComponent } from './portal/portal.component';
-import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
+import { RegionsComponent } from './regions/regions.component';
 import { CondominiumsComponent } from './condominiums/condominiums.component';
 import { CondominiumComponent } from './condominium/condominium.component';
+import { FaqComponent } from './faq/faq.component';
+import { SyncComponent } from './sync/sync.component';
 
 const routes: Routes = [
 
@@ -12,8 +14,8 @@ const routes: Routes = [
     component: PortalComponent,
     children: [
       {
-        path: 'Neighborhoods',
-        component: NeighborhoodsComponent
+        path: 'Regions',
+        component: RegionsComponent
       },
       {
         path: 'Condominiums',
@@ -22,6 +24,14 @@ const routes: Routes = [
       {
         path: 'Condominium',
         component: CondominiumComponent
+      },
+      {
+        path: 'Faq',
+        component: FaqComponent
+      },
+      {
+        path: 'Sync',
+        component: SyncComponent
       },
     ]
   },

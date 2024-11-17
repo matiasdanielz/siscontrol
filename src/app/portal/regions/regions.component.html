@@ -21,10 +21,12 @@
                 class="w-full mb-3"
                 type="text" 
                 pInputText 
-                placeholder="Buscar" />
+                placeholder="Buscar"
+                [(ngModel)]="searchFilter"
+                (input)="filterNeighborhoods()"/>
         </p-iconField>
         <p-table
-            [value]="neighborhoodsItems"
+            [value]="filteredNeighborhoods"
             [columns]="neighborhoodsColumns"
             styleClass="p-datatable-sm p-datatable-striped">
             <ng-template 
@@ -32,7 +34,7 @@
                 let-columns>
                 <tr>
                     <th
-                        style="width:10%">
+                        style="width:15%">
                     </th>
                     <th 
                         *ngFor="let col of columns">
@@ -51,7 +53,7 @@
                             pButton
                             pRipple
                             [text]="true"
-                            label="Visualizar"
+                            label="Ver Mais"
                             icon="pi pi-eye" 
                             (click)="openNeighborhood(neighborhood)">
                         </button>
@@ -60,7 +62,7 @@
                         {{ neighborhood.regiao }}
                     </td>
                     <td>
-                        <p-progressBar [value]="neighborhood.utilization" />
+                        {{ neighborhood.leituras_ok }} / {{ neighborhood.leituras_totais }}
                     </td>
                 </tr>
             </ng-template>

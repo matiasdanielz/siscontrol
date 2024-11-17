@@ -4,12 +4,13 @@ import { PortalRoutingModule } from './portal-routing.module';
 import { AppRoutingModule } from '../app-routing.module';
 import { PortalComponent } from './portal/portal.component';
 import { NavbarComponent } from './navbar/navbar.component';
-import { NeighborhoodsComponent } from './neighborhoods/neighborhoods.component';
+import { RegionsComponent } from './regions/regions.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 import { FormsModule } from '@angular/forms';
 import { CondominiumsComponent } from './condominiums/condominiums.component';
 import { CondominiumComponent } from './condominium/condominium.component';
 import { GenericComponentsModule } from '../generic-components/generic-components.module';
+import { FaqComponent } from './faq/faq.component';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -26,14 +27,20 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { InputTextModule } from 'primeng/inputtext';
 import { IconFieldModule } from 'primeng/iconfield';
 import { InputIconModule } from 'primeng/inputicon';
+import { TagModule } from 'primeng/tag';
+import { AccordionModule } from 'primeng/accordion';
+import { BadgeModule } from 'primeng/badge';
+import { SyncComponent } from './sync/sync.component';
 
 @NgModule({
   declarations: [
     PortalComponent,
     NavbarComponent,
-    NeighborhoodsComponent,
+    RegionsComponent,
     CondominiumsComponent,
-    CondominiumComponent
+    CondominiumComponent,
+    FaqComponent,
+    SyncComponent
   ],
   imports: [
     CommonModule,
@@ -55,7 +62,10 @@ import { InputIconModule } from 'primeng/inputicon';
     FloatLabelModule,
     InputTextModule,
     IconFieldModule,
-    InputIconModule
+    InputIconModule,
+    TagModule,
+    AccordionModule,
+    BadgeModule
   ]
 })
 export class PortalModule { }

@@ -18,6 +18,7 @@ import { FloatLabelModule } from 'primeng/floatlabel';
 import { ToastModule } from 'primeng/toast';
 import { RippleModule } from 'primeng/ripple';
 import { ProgressSpinnerModule } from 'primeng/progressspinner';
+import { IonicStorageModule } from '@ionic/storage-angular';
 
 @NgModule({
   declarations: [
@@ -39,7 +40,8 @@ import { ProgressSpinnerModule } from 'primeng/progressspinner';
     RippleModule,
     FormsModule,
     ProgressSpinnerModule,
-    GenericComponentsModule
+    GenericComponentsModule,
+    IonicStorageModule.forRoot()
 
   ]
 })

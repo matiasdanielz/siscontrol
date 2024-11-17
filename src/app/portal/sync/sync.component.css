@@ -14,13 +14,3 @@
     overflow-y: auto; /* Habilita rolagem vertical caso o conteúdo exceda */
     min-width: 100%;
 }
-
-.button-container {
-    margin-top: 1rem; /* Ajuste para o espaçamento desejado */
-}
-
-.left-aligned-input {
-    text-align: left; /* Alinha o conteúdo à esquerda */
-    width: auto; /* Ajusta a largura automaticamente */
-    margin-left: 0; /* Remove qualquer margem que possa centralizar */
-}

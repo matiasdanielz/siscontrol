@@ -1,6 +1,12 @@
 <p-menubar
     [model]="menuItems">
     <ng-template 
+        pTemplate="start">
+        <img 
+            src="./assets/images/logo.png"
+            height="40px">
+    </ng-template>
+    <ng-template 
         pTemplate="item" 
         let-item 
         let-root="root">
@@ -14,6 +20,10 @@
                 class="ml-2">
                 {{ item.label }}
             </span>
+            <p-badge 
+                *ngIf="item.badge" 
+                [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" 
+                [value]="item.badge" />
         </a>
     </ng-template>
     <ng-template 
