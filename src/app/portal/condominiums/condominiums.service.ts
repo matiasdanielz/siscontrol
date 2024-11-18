@@ -42,7 +42,7 @@ export class CondominiumsService {
 
   public async getCondominiumsItems(){
 
-    const url: string = `/api_med?metodo=getConds&idRegiao=${this.selectedNeighborhood}&idUsuario=${this.userId}`;
+    const url: string = `https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=${this.selectedNeighborhood}&idUsuario=${this.userId}`;
 
     const response: any = await this.http.get(url).toPromise();
 

@@ -24,7 +24,7 @@ export class NavbarService {
         label: 'Inicio',
         icon: 'pi pi-home',
         command: () => {
-          this.route.navigate(['/', 'Neighborhoods'], {
+          this.route.navigate(['/', 'Regions'], {
             queryParams: {
               "userId": userId
             }

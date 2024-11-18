@@ -29,7 +29,7 @@ export class CondominiumService {
   }
 
   public async updateReading(item: any): Promise<any> {
-    const url: string = `/api_med?metodo=enviaLeitura`;
+    const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaLeitura`;
     
     try {
       const response: any = await this.http.post(url, item, { responseType: 'text' }).toPromise();

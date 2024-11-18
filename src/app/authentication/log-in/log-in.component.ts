@@ -46,7 +46,7 @@ export class LogInComponent implements OnInit{
   
         await this.setSessionData(userId);
   
-        this.route.navigate(['', 'Neighborhoods'], {
+        this.route.navigate(['', 'Regions'], {
           queryParams: { userId }
         });
       } else {
