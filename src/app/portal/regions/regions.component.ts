@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
-import { RegionsService } from './regions.service';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
+import { RegionsService } from 'src/app/services/regions/regions.service';
 
 @Component({
   selector: 'app-regions',

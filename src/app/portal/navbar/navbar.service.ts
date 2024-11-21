@@ -2,6 +2,7 @@ import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
 import { Storage } from '@ionic/storage-angular';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Injectable({
   providedIn: 'root'
@@ -10,14 +11,15 @@ export class NavbarService {
 
   constructor(
     private route: Router,
-    private storage: Storage
+    private storage: Storage,
+    private storageService: StorageService
   ) { }
 
   public async getMenuItems(): Promise<MenuItem[]>{
     const userId: string = await this.storage.get("userId");
 
-    const syncItems = await this.getSyncItems(); 
-    const syncCount = syncItems.length;
+    const syncItems = await this.storageService.getFailedReadingItems();
+    const syncCount: string = syncItems == null ? "0" : syncItems.length.toString();
 
     return [
       {
@@ -47,11 +49,5 @@ export class NavbarService {
         }
       },
     ];
-  }
-
-  private async getSyncItems(): Promise<any[]> {
-    const failedReadings: any[] = await this.storage.get('failedReadings') || [];
-
-    return failedReadings;
   }
 }

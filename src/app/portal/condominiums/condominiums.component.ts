@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { CondominiumsService } from './condominiums.service';
 import { Storage } from '@ionic/storage-angular';
+import { CondominiumsService } from 'src/app/services/condominiums/condominiums.service';
 
 @Component({
   selector: 'app-condominiums',
@@ -9,6 +9,9 @@ import { Storage } from '@ionic/storage-angular';
   styleUrl: './condominiums.component.css'
 })
 export class CondominiumsComponent implements OnInit{
+  //Nome Da Regiao
+  protected regionName: string = '';
+
   //Tabela Principal
   protected condominiumsItems: any[] = [];
   protected filteredCondominiums: any[] = [];
@@ -31,6 +34,8 @@ export class CondominiumsComponent implements OnInit{
   async ngOnInit(): Promise<void> {
     this.condominiumsItems = await this.condominiums.getCondominiumsItems();
     this.filteredCondominiums = this.condominiumsItems;
+
+    this.regionName = this.condominiumsItems[0]['regiao'];
 
     this.isLoading = false;
   }

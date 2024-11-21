@@ -5,7 +5,7 @@ import { ActivatedRoute } from '@angular/router';
 @Injectable({
   providedIn: 'root'
 })
-export class CondominiumService {
+export class SavingsService {
 
   private selectedCondominium: string = "";
   private userId: string = "";
@@ -20,7 +20,7 @@ export class CondominiumService {
     });
   }
 
-  public async getCondominiumValues(): Promise<any>{
+  public async getSavingItems(): Promise<any>{
     const url: string = `https://conline.solucaoadm.com/api_med?metodo=getCond&idCond=${this.selectedCondominium}&idUsuario=${this.userId}`;
 
     const response: any = await this.http.get(url).toPromise();
@@ -28,7 +28,7 @@ export class CondominiumService {
     return response;  
   }
 
-  public async updateReading(item: any): Promise<any> {
+  public async updateSaving(item: any): Promise<any> {
     const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaLeitura`;
     
     try {
@@ -37,7 +37,7 @@ export class CondominiumService {
       return response;
     } catch (error) {
       console.error('Erro ao fazer o parsing da resposta:', error);
-      return null; // ou o que preferir retornar em caso de erro
+      return null;
     }
   }
 }

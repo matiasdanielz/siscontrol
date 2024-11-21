@@ -43,5 +43,4 @@ export class RegionsService {
     const response: any = await this.http.get(url).toPromise();
     return response;
   }
-  
 }

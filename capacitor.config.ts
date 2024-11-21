@@ -1,8 +1,8 @@
 import type { CapacitorConfig } from '@capacitor/cli';
 
 const config: CapacitorConfig = {
-  appId: 'com.matiasdaniel.siscontrol',
-  appName: 'siscontrol',
+  appId: 'com.danielmatias.solucaocondominios',
+  appName: 'Solução Condominios',
   webDir: 'dist'
 };
 

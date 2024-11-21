@@ -1,4 +1,4 @@
-package com.matiasdaniel.siscontrol;
+package com.danielmatias.solucaocondominios;
 
 import com.getcapacitor.BridgeActivity;
 

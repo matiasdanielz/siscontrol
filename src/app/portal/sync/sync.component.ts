@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { SyncService } from './sync.service';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-sync',
@@ -14,7 +14,7 @@ export class SyncComponent implements OnInit{
   protected isLoading: boolean = true;
 
   constructor(
-    private syncService: SyncService
+    private storageService: StorageService
   ){
   }
 
@@ -25,15 +25,15 @@ export class SyncComponent implements OnInit{
   }
 
   protected async setAmountOfSyncPendencies(){
-    const response: any[] = await this.syncService.getSyncPendenciesItems();
+    const response: any = await this.storageService.getFailedReadingItems();
 
     this.amountOfSyncPendencies = response.length.toString();
   }
 
-  protected async syncPendencies(){
+  protected async updateAllFailedReadingItems(){
     this.isLoading = true;
 
-    await this.syncService.syncPendencies();
+    await this.storageService.updateAllFailedReadingItems();
 
     this.setAmountOfSyncPendencies();
 
