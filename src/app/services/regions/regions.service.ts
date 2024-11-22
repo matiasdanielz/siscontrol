@@ -1,7 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
+import { StorageService } from '../storage/storage.service';
 
 interface column{
   property: string,
@@ -13,12 +12,9 @@ interface column{
 })
 export class RegionsService {
 
-  private userId: string = '';
-
   constructor(
     private http: HttpClient,
-    private storage: Storage,
-    private route: ActivatedRoute
+    private storageService: StorageService
   ) { 
   }
 
@@ -37,8 +33,8 @@ export class RegionsService {
   }
 
   public async getRegionsItems() {
-    this.userId = await this.storage.get("userId");
-    const url: string = `https://conline.solucaoadm.com/api_med?metodo=getRegioes&idUsuario=${this.userId}`;
+    const userId = await this.storageService.getUserId();
+    const url: string = `https://conline.solucaoadm.com/api_med?metodo=getRegioes&idUsuario=${userId}`;
   
     const response: any = await this.http.get(url).toPromise();
     return response;

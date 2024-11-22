@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { MenuItem } from 'primeng/api';
 import { NavbarService } from './navbar.service';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-navbar',
@@ -15,7 +15,7 @@ export class NavbarComponent implements OnInit{
   constructor(
     private navbarService: NavbarService,
     private route: Router,
-    private storage: Storage
+    private storageService: StorageService
   ){
   }
 
@@ -25,7 +25,7 @@ export class NavbarComponent implements OnInit{
   }
 
   protected async signOut(){
-    await this.storage.remove("isLoggedIn");
+    await this.storageService.logOutUser();
     this.route.navigate(['/', 'LogIn']);
   }
 }

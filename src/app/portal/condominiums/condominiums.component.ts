@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { CondominiumsService } from 'src/app/services/condominiums/condominiums.service';
+import { MenuItem } from 'primeng/api';
 
 @Component({
   selector: 'app-condominiums',
@@ -9,6 +10,17 @@ import { CondominiumsService } from 'src/app/services/condominiums/condominiums.
   styleUrl: './condominiums.component.css'
 })
 export class CondominiumsComponent implements OnInit{
+  //Breadcrumb
+  protected items: MenuItem[] = [
+    {
+      label: 'Regiões',
+      routerLink: '/Regions',
+    },
+    {
+      label: 'Condominios',
+    }
+  ];
+
   //Nome Da Regiao
   protected regionName: string = '';
 

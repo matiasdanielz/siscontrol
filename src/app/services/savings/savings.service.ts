@@ -30,14 +30,26 @@ export class SavingsService {
 
   public async updateSaving(item: any): Promise<any> {
     const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaLeitura`;
-    
+  
+    // Converte o objeto para FormData
+    let formData: any = new FormData();
+    formData.append('dados', JSON.stringify(item.dados)); // Formato esperado no body
+  
     try {
-      const response: any = await this.http.post(url, item, { responseType: 'text' }).toPromise();
-
+      const response: any = await this.http.post(url, formData, { responseType: 'text' }).toPromise();
+  
+      // Ignora respostas de preflight
+      if (response && response.toLowerCase().includes('preflight')) {
+        console.warn('Resposta preflight ignorada:', response);
+        return null;
+      }
+  
       return response;
     } catch (error) {
       console.error('Erro ao fazer o parsing da resposta:', error);
       return null;
     }
   }
+  
+  
 }

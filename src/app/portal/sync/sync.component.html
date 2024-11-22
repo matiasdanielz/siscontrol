@@ -15,6 +15,7 @@
         pRipple
         label="Sincronizar Pendencias"
         icon="pi pi-sync"
-        (click)="updateAllFailedReadingItems()">
+        (click)="updateAllFailedReadingItems()"
+        [disabled]="amountOfSyncPendencies == '0'">
     </button>
 </div>

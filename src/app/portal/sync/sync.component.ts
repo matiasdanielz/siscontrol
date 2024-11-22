@@ -27,7 +27,11 @@ export class SyncComponent implements OnInit{
   protected async setAmountOfSyncPendencies(){
     const response: any = await this.storageService.getFailedReadingItems();
 
-    this.amountOfSyncPendencies = response.length.toString();
+    if(response != null){
+      this.amountOfSyncPendencies = response.length.toString();
+    }else{
+      this.amountOfSyncPendencies = '0';
+    }
   }
 
   protected async updateAllFailedReadingItems(){

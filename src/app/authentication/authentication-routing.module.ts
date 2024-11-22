@@ -1,7 +1,5 @@
 import { NgModule } from '@angular/core';
 import { Routes, RouterModule } from '@angular/router';
-import { SignInComponent } from './sign-in/sign-in.component';
-import { AuthenticationComponent } from './authentication/authentication.component';
 import { LogInComponent } from './log-in/log-in.component';
 
 const routes: Routes = [
@@ -13,11 +11,6 @@ const routes: Routes = [
     path: 'LogIn',
     component: LogInComponent
   },
-  {
-    path: 'SignIn',
-    component: SignInComponent
-  }
-
 ];
 
 @NgModule({

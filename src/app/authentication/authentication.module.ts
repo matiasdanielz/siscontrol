@@ -1,7 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { LogInComponent } from './log-in/log-in.component';
-import { SignInComponent } from './sign-in/sign-in.component';
 import { AuthenticationComponent } from './authentication/authentication.component';
 import { AppRoutingModule } from '../app-routing.module';
 import { AuthenticationRoutingModule } from './authentication-routing.module';
@@ -23,7 +22,6 @@ import { IonicStorageModule } from '@ionic/storage-angular';
 @NgModule({
   declarations: [
     LogInComponent,
-    SignInComponent,
     AuthenticationComponent,
   ],
   imports: [

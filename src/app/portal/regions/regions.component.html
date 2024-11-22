@@ -6,9 +6,16 @@
 <div
     id="page"
     class="pl-3 pr-3 background">
+    <p-breadcrumb 
+        class="max-w-full mt-3" 
+        [model]="items"/>
     <h1>
         Regiões
     </h1>
+    <div
+        class="text-lg font-medium text-900 mb-3">
+        Selecionando uma linha, voce se posiciona no registro!
+    </div>
     <p-card
         class="card">
         <p-iconField 
@@ -28,36 +35,22 @@
         <p-table
             [value]="filteredNeighborhoods"
             [columns]="neighborhoodsColumns"
-            styleClass="p-datatable-sm p-datatable-striped">
+            styleClass="p-datatable-xl p-datatable-striped">
             <ng-template 
                 pTemplate="header" 
                 let-columns>
                 <tr>
-                    <th
-                        style="width:15%">
-                    </th>
                     <th 
                         *ngFor="let col of columns">
                         {{ col.label }}
                     </th>
-
                 </tr>
             </ng-template>
             <ng-template 
                 pTemplate="body" 
                 let-neighborhood>
-                <tr>
-                    <td>
-                        <button 
-                            type="button" 
-                            pButton
-                            pRipple
-                            [text]="true"
-                            label="Ver Mais"
-                            icon="pi pi-eye" 
-                            (click)="openNeighborhood(neighborhood)">
-                        </button>
-                    </td>
+                <tr 
+                    (click)="openRegion(neighborhood)">
                     <td>
                         {{ neighborhood.regiao }}
                     </td>

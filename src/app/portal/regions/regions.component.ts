@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { Storage } from '@ionic/storage-angular';
 import { RegionsService } from 'src/app/services/regions/regions.service';
+import { MenuItem } from 'primeng/api';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-regions',
@@ -9,6 +11,15 @@ import { RegionsService } from 'src/app/services/regions/regions.service';
   styleUrl: './regions.component.css'
 })
 export class RegionsComponent implements OnInit {
+  //Breadcrumb
+  protected items: MenuItem[] = [
+    {
+      label: 'Regiões'
+    }
+  ];
+
+  protected selectedItem: any;
+
   // Tabela Principal
   protected neighborhoodsItems: any[] = [];
   protected neighborhoodsColumns: any[] = [];
@@ -23,7 +34,8 @@ export class RegionsComponent implements OnInit {
   constructor(
     private neighborhoodsService: RegionsService,
     private route: Router,
-    private storage: Storage
+    private storage: Storage,
+    private storageService: StorageService
   ) {
     this.neighborhoodsColumns = neighborhoodsService.getRegionsColumns();
   }
@@ -34,15 +46,10 @@ export class RegionsComponent implements OnInit {
     this.isLoading = false;
   }
 
-  protected async openNeighborhood(selectedItem: any) {
-    const userId: string = await this.storage.get("userId");
+  protected openRegion(selectedItem: any) {
+    this.storageService.setPositionedRegion(selectedItem['idRegiao']);
 
-    this.route.navigate(['/', 'Condominiums'], {
-      queryParams: {
-        "neighborhoodId": selectedItem['idRegiao'],
-        "userId": userId
-      }
-    });
+    this.route.navigate(['/', 'Condominiums']);
   }
 
   protected filterNeighborhoods() {

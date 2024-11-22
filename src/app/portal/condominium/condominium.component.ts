@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { Storage } from '@ionic/storage-angular';
 import { SavingsService } from 'src/app/services/savings/savings.service';
+import { MenuItem } from 'primeng/api';
+import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
   selector: 'app-condominium',
@@ -8,13 +10,29 @@ import { SavingsService } from 'src/app/services/savings/savings.service';
   styleUrl: './condominium.component.css'
 })
 export class CondominiumComponent implements OnInit{
-  //Itens Da Tabela
-  protected condominiumValues: any[] =[];
-  protected filteredApartments: any[] = [];
-
   //Titulo e Id da Pagina
   protected condominiumTitle: string = "";
   protected condominiumId: string = "";
+  protected condominiumObservation: string = "";
+
+  //Breadcrumb
+  protected items: MenuItem[] = [
+    {
+      label: 'Regiões',
+      routerLink: '/Regions',
+    },
+    {
+      label: 'Condominios',
+      routerLink: '/Condominiums',
+    },
+    {
+      label: 'Economias'
+    }
+  ];
+
+  //Itens Da Tabela
+  protected condominiumValues: any[] =[];
+  protected filteredApartments: any[] = [];
 
   //Overlay de carregamento
   protected isLoading: boolean = true;
@@ -25,6 +43,7 @@ export class CondominiumComponent implements OnInit{
   constructor(
     private savingsService: SavingsService,
     private storage: Storage,
+    private storageService: StorageService,
   ){
   }
 
@@ -34,6 +53,7 @@ export class CondominiumComponent implements OnInit{
 
     this.condominiumTitle = this.condominiumValues[0]['condominio'];
     this.condominiumId = this.condominiumValues[0]['idCond'];
+    this.condominiumObservation = this.condominiumValues[0]['observacao'];
 
     this.isLoading = false;
   }
@@ -48,38 +68,31 @@ export class CondominiumComponent implements OnInit{
     const inputElement = newReadingEvent.target as HTMLInputElement;
     const newReading: string = inputElement.value;
   
-    const formData = new FormData();
-    formData.append('dados', `{"idCond": "${selectedItem['idCond']}", "economia": "${selectedItem['economia']}", "leitura_atual": "${newReading}", "tipo_consumo": "${readingType}"}`);
+    const requestJson = {
+      "dados": {
+        "idCond": selectedItem['idCond'],
+        "economia": selectedItem['economia'],
+        "leitura_atual": newReading,
+        "tipo_consumo": readingType,
+      }
+    };
 
-    const response = await this.savingsService.updateSaving(formData);
+    const response = await this.savingsService.updateSaving(requestJson);
   
     if (response !== 'sucesso"sucesso"') {
-      await this.storeFailedReading(formData);
+      await this.storeFailedReading(requestJson);
     }
   }
   
-  private async storeFailedReading(formData: FormData): Promise<void> {
+  private async storeFailedReading(failedReading: any): Promise<void> {
     try {
-      let failedReadings = await this.storage.get('failedReadings');
+      let failedReadings = await this.storageService.getFailedReadingItems();
   
-      failedReadings = failedReadings ? JSON.parse(failedReadings) : [];
+      failedReadings.push(failedReading);
   
-      const formDataObject = this.formDataToObject(formData);
-  
-      failedReadings.push(formDataObject);
-  
-      await this.storage.set('failedReadings', JSON.stringify(failedReadings));
+      await this.storage.set('failedReadings', failedReadings);
     } catch (error) {
+      console.error('Erro ao armazenar a leitura falha:', error);
     }
   }
-  
-  
-  private formDataToObject(formData: FormData): object {
-    const obj: any = {};
-    formData.forEach((value, key) => {
-      obj[key] = value;
-    });
-    return obj;
-  }
-  
 }

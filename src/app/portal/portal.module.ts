@@ -11,6 +11,7 @@ import { CondominiumsComponent } from './condominiums/condominiums.component';
 import { CondominiumComponent } from './condominium/condominium.component';
 import { GenericComponentsModule } from '../generic-components/generic-components.module';
 import { FaqComponent } from './faq/faq.component';
+import { SyncComponent } from './sync/sync.component';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -30,7 +31,9 @@ import { InputIconModule } from 'primeng/inputicon';
 import { TagModule } from 'primeng/tag';
 import { AccordionModule } from 'primeng/accordion';
 import { BadgeModule } from 'primeng/badge';
-import { SyncComponent } from './sync/sync.component';
+import { BreadcrumbModule } from 'primeng/breadcrumb';
+import { ScrollTopModule } from 'primeng/scrolltop';
+import { InputNumberModule } from 'primeng/inputnumber';
 
 @NgModule({
   declarations: [
@@ -65,7 +68,10 @@ import { SyncComponent } from './sync/sync.component';
     InputIconModule,
     TagModule,
     AccordionModule,
-    BadgeModule
+    BadgeModule,
+    BreadcrumbModule,
+    ScrollTopModule,
+    InputNumberModule
   ]
 })
 export class PortalModule { }

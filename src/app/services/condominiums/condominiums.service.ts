@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
+import { StorageService } from '../storage/storage.service';
 
 interface column{
   property: string,
@@ -11,19 +11,11 @@ interface column{
   providedIn: 'root'
 })
 export class CondominiumsService {
-
-  private selectedNeighborhood: string = "";
-  private userId: string = "";
-
   constructor(
     private http: HttpClient,
-    private route: ActivatedRoute,
+    private storageService: StorageService
 
   ) {
-    this.route.queryParams.subscribe(params => {
-      this.selectedNeighborhood = params['neighborhoodId'];
-      this.userId = params['userId'];
-    });
   }
   
 
@@ -41,8 +33,10 @@ export class CondominiumsService {
   }
 
   public async getCondominiumsItems(){
+    const selectionedRegionId = await this.storageService.getPositionedRegionId();
+    const userId = await this.storageService.getUserId();
 
-    const url: string = `https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=${this.selectedNeighborhood}&idUsuario=${this.userId}`;
+    const url: string = `https://conline.solucaoadm.com/api_med?metodo=getConds&idRegiao=${selectionedRegionId}&idUsuario=${userId}`;
 
     const response: any = await this.http.get(url).toPromise();
 
