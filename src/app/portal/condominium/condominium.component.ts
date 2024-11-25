@@ -1,13 +1,15 @@
 import { Component, OnInit } from '@angular/core';
-import { Storage } from '@ionic/storage-angular';
 import { SavingsService } from 'src/app/services/savings/savings.service';
 import { MenuItem } from 'primeng/api';
 import { StorageService } from 'src/app/services/storage/storage.service';
+import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
+import { MessageService } from 'primeng/api';
 
 @Component({
   selector: 'app-condominium',
   templateUrl: './condominium.component.html',
-  styleUrl: './condominium.component.css'
+  styleUrl: './condominium.component.css',
+  providers: [MessageService],
 })
 export class CondominiumComponent implements OnInit{
   //Titulo e Id da Pagina
@@ -40,10 +42,15 @@ export class CondominiumComponent implements OnInit{
   //Filtro De Busca
   protected searchFilter: string = '';
 
+  //Fotos Da Economia
+  protected isPhotoModalOpen: boolean = false;
+  protected newPhoto: any = null;
+  protected openedUnityInPhotoModal: any = {"economia": ""};
+
   constructor(
     private savingsService: SavingsService,
-    private storage: Storage,
     private storageService: StorageService,
+    private messageService: MessageService,
   ){
   }
 
@@ -80,19 +87,43 @@ export class CondominiumComponent implements OnInit{
     const response = await this.savingsService.updateSaving(requestJson);
   
     if (response !== 'sucesso"sucesso"') {
-      await this.storeFailedReading(requestJson);
+      await this.storageService.addFailedReading(requestJson);
+      this.showError("Falha de rede! Leitura Armazenada para sincronizar mais tarde!");
     }
   }
+
+  public showPhotoModal(openedUnityInPhotoModal: any){
+    this.openedUnityInPhotoModal = openedUnityInPhotoModal;
+    this.isPhotoModalOpen = true;
+  }
   
-  private async storeFailedReading(failedReading: any): Promise<void> {
+  public async openCamera() {
     try {
-      let failedReadings = await this.storageService.getFailedReadingItems();
+      const photo = await Camera.getPhoto({
+        quality: 90,
+        allowEditing: false,
+        resultType: CameraResultType.Uri,
+        source: CameraSource.Camera, // Usa a câmera do dispositivo
+      });
   
-      failedReadings.push(failedReading);
-  
-      await this.storage.set('failedReadings', failedReadings);
+      console.log('Foto capturada:', photo);
+      // Exemplo de como usar a imagem capturada
+      this.newPhoto = photo.webPath; // URL da imagem para exibir na tela
     } catch (error) {
-      console.error('Erro ao armazenar a leitura falha:', error);
+      console.error('Erro ao abrir a câmera:', error);
     }
+  }
+
+  protected onHidePhotoModal(){
+    this.newPhoto = null;
+  }
+
+  private showError(message: string): void {
+    this.messageService.add({
+      severity: 'error',
+      summary: 'Erro',
+      detail: message,
+      life: 1000,
+    });
   }
 }

@@ -23,7 +23,8 @@
             <p-badge 
                 *ngIf="item.badge" 
                 [ngClass]="{ 'ml-auto': !root, 'ml-2': root }" 
-                [value]="item.badge" />
+                [value]="item.badge" 
+                severity="danger"/>
         </a>
     </ng-template>
     <ng-template 

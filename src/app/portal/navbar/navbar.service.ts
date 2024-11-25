@@ -1,7 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Router } from '@angular/router';
 import { MenuItem } from 'primeng/api';
-import { Storage } from '@ionic/storage-angular';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Injectable({
@@ -11,13 +10,11 @@ export class NavbarService {
 
   constructor(
     private route: Router,
-    private storage: Storage,
-    private storageService: StorageService
-  ) { }
+    private storageService: StorageService // Injeção do StorageService
+  ) {
+  }
 
   public async getMenuItems(): Promise<MenuItem[]>{
-    const userId: string = await this.storage.get("userId");
-
     const syncItems = await this.storageService.getFailedReadingItems();
     const syncCount: string = syncItems == null ? "0" : syncItems.length.toString();
 
@@ -26,17 +23,13 @@ export class NavbarService {
         label: 'Inicio',
         icon: 'pi pi-home',
         command: () => {
-          this.route.navigate(['/', 'Regions'], {
-            queryParams: {
-              "userId": userId
-            }
-          });
+          this.route.navigate(['/', 'Regions']);
         }
       },
       {
         label: 'Sincronização',
         icon: 'pi pi-sync',
-        badge: syncCount.toString() || '0',
+        badge: syncCount.toString(),
         command: () => {
           this.route.navigate(['/', 'Sync']);
         }
