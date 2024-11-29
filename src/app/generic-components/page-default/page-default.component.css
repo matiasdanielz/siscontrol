@@ -24,12 +24,3 @@
     width: auto; /* Ajusta a largura automaticamente */
     margin-left: 0; /* Remove qualquer margem que possa centralizar */
 }
-
-
-.photo-border {
-    padding: 10px; /* Espaçamento entre a borda e a foto */
-    border: 2px solid #d9d9d9; /* Contorno cinza */
-    border-radius: 5px; /* Bordas levemente arredondadas */
-    background-color: #fff; /* Fundo branco para destacar */
-    display: inline-block; /* Garante que o padding e a borda fiquem alinhados à imagem */
-}

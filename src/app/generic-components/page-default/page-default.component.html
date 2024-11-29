@@ -1,0 +1,59 @@
+<!-- Pagina Default -->
+<div
+    id="page"
+    class="pl-3 pr-3 background">
+    <!-- Breadcrumb -->
+    <p-breadcrumb
+        class="max-w-full mt-3"
+        [model]="breadcrumbItems">
+        <ng-template
+            pTemplate="item"
+            let-item>
+            <ng-container
+                *ngIf="item.routerLink; else elseBlock">
+                <a
+                    [routerLink]="item.routerLink"
+                    class="p-menuitem-link">
+                    <span
+                        [ngClass]="[item.icon ? item.icon : '', 'text-color']">
+                    </span>
+                    <span
+                        class="text-primary font-semibold">
+                        {{ item.label }}
+                    </span>
+                </a>
+            </ng-container>
+            <ng-template
+                #elseBlock>
+                <span
+                    class="text-color">
+                    {{ item.label }}
+                </span>
+            </ng-template>
+        </ng-template>
+    </p-breadcrumb>
+    <!-- Titulo -->
+    <h1>
+        {{pageTitle}}
+    </h1>
+    <!-- Subtitulo -->
+    <div
+        class="text-lg font-medium text-900 mb-3">
+        {{pageSubtitle}}
+    </div>
+    <!-- Observação -->
+    <div
+        class="text-lg font-medium text-900 mb-3">
+        {{pageObservation}}
+    </div>
+    <!-- Filtro De Busca -->
+    <p-card>
+        <!-- 
+            ------------------
+            Content Projection
+            ------------------
+         -->
+        <ng-content>
+        </ng-content>        
+    </p-card>
+</div>

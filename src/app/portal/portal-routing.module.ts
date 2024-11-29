@@ -3,9 +3,9 @@ import { RouterModule, Routes } from '@angular/router';
 import { PortalComponent } from './portal/portal.component';
 import { RegionsComponent } from './regions/regions.component';
 import { CondominiumsComponent } from './condominiums/condominiums.component';
-import { CondominiumComponent } from './condominium/condominium.component';
 import { FaqComponent } from './faq/faq.component';
 import { SyncComponent } from './sync/sync.component';
+import { SavingsComponent } from './savings/savings/savings.component';
 
 const routes: Routes = [
 
@@ -22,8 +22,8 @@ const routes: Routes = [
         component: CondominiumsComponent
       },
       {
-        path: 'Condominium',
-        component: CondominiumComponent
+        path: 'Savings',
+        component: SavingsComponent
       },
       {
         path: 'Faq',

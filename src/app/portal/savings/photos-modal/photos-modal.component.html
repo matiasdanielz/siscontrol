@@ -1,0 +1,72 @@
+<p-dialog
+    [(visible)]="isPhotoModalOpen"
+    [modal]="true"
+    header="Fotos Do Medidor Da Unidade {{openedUnityInPhotoModal['economia']}}"
+    [style]="{ width: '85%'}"
+    closable="true"
+    (onHide)="onHidePhotoModal()">
+    <p-tabView
+        class="mb-7">
+        <p-tabPanel
+            header="Água">
+            <ng-template
+                pTemplate="header">
+                <div
+                    class="flex align-items-center gap-2">
+                    <span
+                        class="font-bold white-space-nowrap m-0">
+                        Água
+                    </span>
+                    <p-badge
+                        [value]="openedUnityInPhotoModal['imagem_atual_agua'] == null && newWaterPhoto == null ? 'Pendente' : 'Concluído'"
+                        [severity]="openedUnityInPhotoModal['imagem_atual_agua'] == null && newWaterPhoto == null ? 'danger' : 'success'" />
+                </div>
+            </ng-template>
+            <div
+                id="photos"
+                class="flex flex-column align-items-center gap-3">
+                <img
+                    [src]="newWaterPhoto != null ? newWaterPhoto : openedUnityInPhotoModal['imagem_atual_agua']"
+                    class="w-full mt-3 photo-border"
+                    height="250px" />
+                <p-button
+                    class="mt-3"
+                    label="Substituir Foto"
+                    icon="pi pi-edit"
+                    (onClick)="openCamera('agua')">
+                </p-button>
+            </div>
+        </p-tabPanel>
+
+        <p-tabPanel
+            header="Gás">
+            <ng-template
+                pTemplate="header">
+                <div
+                    class="flex align-items-center gap-2">
+                    <span
+                        class="font-bold white-space-nowrap m-0">
+                    Gás
+                    </span>
+                    <p-badge
+                        [value]="openedUnityInPhotoModal['imagem_atual_gas'] == null && newGasPhoto == null ? 'Pendente' : 'Concluído'"
+                        [severity]="openedUnityInPhotoModal['imagem_atual_gas'] == null && newGasPhoto == null ? 'danger' : 'success'" />
+                </div>
+            </ng-template>
+            <div
+                id="photos"
+                class="flex flex-column align-items-center gap-3">
+                <img
+                    [src]="newGasPhoto != null ? newGasPhoto : openedUnityInPhotoModal['imagem_atual_gas']"
+                    class="w-full mt-3 photo-border"
+                    height="250px" />
+                <p-button
+                    class="mt-3"
+                    label="Substituir Foto"
+                    icon="pi pi-edit"
+                    (onClick)="openCamera('gas')">
+                </p-button>
+            </div>
+        </p-tabPanel>
+    </p-tabView>
+</p-dialog>

@@ -3,62 +3,50 @@
   *ngIf="isLoading">
 </app-loading-overlay>
 <!-- Pagina Principal -->
-<div
-    id="page"
-    class="pl-3 pr-3 background">
-    <p-breadcrumb 
-        class="max-w-full mt-3" 
-        [model]="items"/>
-    <h1>
-        Regiões
-    </h1>
-    <div
-        class="text-lg font-medium text-900 mb-3">
-        Selecionando uma linha, voce se posiciona no registro!
-    </div>
-    <p-card
-        class="card">
-        <p-iconField 
-            class="w-full"
-            iconPosition="left">
-            <p-inputIcon
-                class="w-full"
-                styleClass="pi pi-search" />
-            <input
-                class="w-full mb-3"
-                type="text" 
-                pInputText 
-                placeholder="Buscar"
-                [(ngModel)]="searchFilter"
-                (input)="filterNeighborhoods()"/>
-        </p-iconField>
-        <p-table
-            [value]="filteredNeighborhoods"
-            [columns]="neighborhoodsColumns"
-            styleClass="p-datatable-xl p-datatable-striped">
-            <ng-template 
-                pTemplate="header" 
-                let-columns>
-                <tr>
-                    <th 
-                        *ngFor="let col of columns">
-                        {{ col.label }}
-                    </th>
-                </tr>
-            </ng-template>
-            <ng-template 
-                pTemplate="body" 
-                let-neighborhood>
-                <tr 
-                    (click)="openRegion(neighborhood)">
-                    <td>
-                        {{ neighborhood.regiao }}
-                    </td>
-                    <td>
-                        {{ neighborhood.leituras_ok }} / {{ neighborhood.leituras_totais }}
-                    </td>
-                </tr>
-            </ng-template>
-        </p-table>
-    </p-card>
-</div>
+<app-page-default
+    pageTitle="Regiões"
+    pageSubtitle="Selecionando Uma linha, voce se posiciona no registro!"
+    [breadcrumbItems]="breadcrumbItems">
+    <!-- Tabela com os itens -->
+    <p-iconField
+        class="w-full"
+        iconPosition="left">
+        <p-inputIcon
+            styleClass="pi pi-search" />
+        <input
+            class="w-full mb-3"
+            type="text"
+            pInputText
+            placeholder="Buscar"
+            [(ngModel)]="searchFilter"
+            (input)="filterItems()" />
+    </p-iconField>
+    <p-table
+        [value]="filteredNeighborhoods"
+        [columns]="neighborhoodsColumns"
+        styleClass="p-datatable-xl p-datatable-striped">
+        <ng-template 
+            pTemplate="header" 
+            let-columns>
+            <tr>
+                <th 
+                    *ngFor="let col of columns">
+                    {{ col.label }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template 
+            pTemplate="body" 
+            let-neighborhood>
+            <tr 
+                (click)="openRegion(neighborhood)">
+                <td>
+                    {{ neighborhood.regiao }}
+                </td>
+                <td>
+                    {{ neighborhood.leituras_ok }} / {{ neighborhood.leituras_totais }}
+                </td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-page-default>

@@ -11,7 +11,7 @@ import { MenuItem } from 'primeng/api';
 })
 export class CondominiumsComponent implements OnInit{
   //Breadcrumb
-  protected items: MenuItem[] = [
+  protected breadcrumbItems: MenuItem[] = [
     {
       label: 'Regiões',
       routerLink: '/Regions',
@@ -55,7 +55,7 @@ export class CondominiumsComponent implements OnInit{
   public async openCondominium(selectedItem: any){
     const userId: string = await this.storage.get("userId");
 
-    this.route.navigate(['/', 'Condominium'], {
+    this.route.navigate(['/', 'Savings'], {
       queryParams: {
         "condominium": selectedItem['idCond'],
         "userId": userId

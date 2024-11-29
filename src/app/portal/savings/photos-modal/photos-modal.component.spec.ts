@@ -1,18 +1,18 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
 
-import { CondominiumComponent } from './condominium.component';
+import { PhotosModalComponent } from './photos-modal.component';
 
-describe('CondominiumComponent', () => {
-  let component: CondominiumComponent;
-  let fixture: ComponentFixture<CondominiumComponent>;
+describe('PhotosModalComponent', () => {
+  let component: PhotosModalComponent;
+  let fixture: ComponentFixture<PhotosModalComponent>;
 
   beforeEach(async () => {
     await TestBed.configureTestingModule({
-      imports: [CondominiumComponent]
+      imports: [PhotosModalComponent]
     })
     .compileComponents();
 
-    fixture = TestBed.createComponent(CondominiumComponent);
+    fixture = TestBed.createComponent(PhotosModalComponent);
     component = fixture.componentInstance;
     fixture.detectChanges();
   });

@@ -14,13 +14,16 @@ export class NavbarService {
   ) {
   }
 
-  public async getMenuItems(): Promise<MenuItem[]>{
-    const syncItems = await this.storageService.getFailedReadingItems();
-    const syncCount: string = syncItems == null ? "0" : syncItems.length.toString();
-
+  public async getMenuItems(): Promise<MenuItem[]> {
+    const failedReadings = await this.storageService.getFailedReadingItems();
+    const failedPhotos = await this.storageService.getFailedPhotoItems();
+    
+    const totalFailures = (failedReadings?.length || 0) + (failedPhotos?.length || 0);
+    const syncCount = totalFailures.toString();
+  
     return [
       {
-        label: 'Inicio',
+        label: 'Início',
         icon: 'pi pi-home',
         command: () => {
           this.route.navigate(['/', 'Regions']);
@@ -29,7 +32,7 @@ export class NavbarService {
       {
         label: 'Sincronização',
         icon: 'pi pi-sync',
-        badge: syncCount.toString(),
+        badge: syncCount,
         command: () => {
           this.route.navigate(['/', 'Sync']);
         }
@@ -43,4 +46,5 @@ export class NavbarService {
       },
     ];
   }
+  
 }

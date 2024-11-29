@@ -13,7 +13,8 @@ import { Subscription } from 'rxjs';
 export class NavbarComponent implements OnInit, OnDestroy {
   protected menuItems: MenuItem[] = [];
 
-  private failedReadingsSubscription: Subscription | null = null; // Atribuindo 'null' inicialmente
+  private failedReadingsSubscription: Subscription | null = null;
+  private failedPhotosSubscription: Subscription | null = null;
 
   constructor(
     private navbarService: NavbarService,
@@ -21,23 +22,30 @@ export class NavbarComponent implements OnInit, OnDestroy {
     private storageService: StorageService
   ) {}
 
-  // ngOnInit será responsável por carregar o menu e inscrever-se nas mudanças de falhas
   async ngOnInit(): Promise<void> {
-    this.getMenuItems();
-    // Inscreve-se no BehaviorSubject para observar a contagem de falhas
-    this.failedReadingsSubscription = this.storageService.failedReadingsCount$.subscribe((count) => {
-     this.getMenuItems();
+    await this.getMenuItems();
+    
+    // Inscrição para observar mudanças nas falhas de leitura
+    this.failedReadingsSubscription = this.storageService.failedReadingsCount$.subscribe(() => {
+      this.getMenuItems();
+    });
+
+    // Inscrição para observar mudanças nas falhas de fotos
+    this.failedPhotosSubscription = this.storageService.failedPhotosCount$.subscribe(() => {
+      this.getMenuItems();
     });
   }
 
-  // ngOnDestroy para cancelar a inscrição quando o componente for destruído
   ngOnDestroy(): void {
     if (this.failedReadingsSubscription) {
       this.failedReadingsSubscription.unsubscribe();
     }
+    if (this.failedPhotosSubscription) {
+      this.failedPhotosSubscription.unsubscribe();
+    }
   }
 
-  private async getMenuItems(){
+  private async getMenuItems() {
     this.menuItems = await this.navbarService.getMenuItems();
   }
 

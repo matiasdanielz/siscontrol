@@ -1,6 +1,5 @@
 import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { Storage } from '@ionic/storage-angular';
 import { RegionsService } from 'src/app/services/regions/regions.service';
 import { MenuItem } from 'primeng/api';
 import { StorageService } from 'src/app/services/storage/storage.service';
@@ -12,7 +11,7 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class RegionsComponent implements OnInit {
   //Breadcrumb
-  protected items: MenuItem[] = [
+  protected breadcrumbItems: MenuItem[] = [
     {
       label: 'Regiões'
     }
@@ -34,7 +33,6 @@ export class RegionsComponent implements OnInit {
   constructor(
     private neighborhoodsService: RegionsService,
     private route: Router,
-    private storage: Storage,
     private storageService: StorageService
   ) {
     this.neighborhoodsColumns = neighborhoodsService.getRegionsColumns();
@@ -52,7 +50,7 @@ export class RegionsComponent implements OnInit {
     this.route.navigate(['/', 'Condominiums']);
   }
 
-  protected filterNeighborhoods() {
+  protected filterItems() {
     this.filteredNeighborhoods = this.neighborhoodsItems.filter(item =>
       item['regiao'].toLowerCase().includes(this.searchFilter.toLowerCase())
     );

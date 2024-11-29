@@ -1,17 +1,6 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
-import { PortalRoutingModule } from './portal-routing.module';
-import { AppRoutingModule } from '../app-routing.module';
-import { PortalComponent } from './portal/portal.component';
-import { NavbarComponent } from './navbar/navbar.component';
-import { RegionsComponent } from './regions/regions.component';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { CondominiumsComponent } from './condominiums/condominiums.component';
-import { GenericComponentsModule } from '../generic-components/generic-components.module';
-import { FaqComponent } from './faq/faq.component';
-import { SyncComponent } from './sync/sync.component';
-import { SavingsModule } from './savings/savings.module';
+import { SavingsComponent } from './savings/savings.component';
 
 //Importações Prime-ng
 import { MenubarModule } from 'primeng/menubar';
@@ -35,22 +24,20 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
-
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
+import { FormsModule } from '@angular/forms';
+import { GenericComponentsModule } from 'src/app/generic-components/generic-components.module';
+import { PhotosModalComponent } from './photos-modal/photos-modal.component';
+import { ReadingBlockComponent } from './reading-block/reading-block.component';
 
 @NgModule({
   declarations: [
-    PortalComponent,
-    NavbarComponent,
-    RegionsComponent,
-    CondominiumsComponent,
-    FaqComponent,
-    SyncComponent,
+    SavingsComponent,
+    PhotosModalComponent,
+    ReadingBlockComponent
   ],
   imports: [
     CommonModule,
-    PortalRoutingModule,
-    MenubarModule,
-    AppRoutingModule,
     AvatarModule,
     TableModule,
     CardModule,
@@ -74,7 +61,6 @@ import { TabViewModule } from 'primeng/tabview';
     ScrollTopModule,
     InputNumberModule,
     TabViewModule,
-    SavingsModule
   ]
 })
-export class PortalModule { }
+export class SavingsModule { }

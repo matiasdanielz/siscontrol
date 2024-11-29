@@ -51,5 +51,25 @@ export class SavingsService {
     }
   }
   
+  public async updatePhoto(item: any){
+    const url: string = `/api_med?metodo=enviaFoto&idCond=${item['condominiumId']}&numeroEconomia=${item['savingId']}&tipoConsumo=${item['consupmitionType']}`;
+  
+    let formData: any = new FormData();
+    formData.append('imagem', item['photo']);
+  
+    try {
+      const response: any = await this.http.post(url, formData, { responseType: 'text' }).toPromise();
+  
+      if (response && response.toLowerCase().includes('preflight')) {
+        console.warn('Resposta preflight ignorada:', response);
+        return null;
+      }
+  
+      return response;
+    } catch (error) {
+      console.error('Erro ao fazer o parsing da resposta:', error);
+      return null;
+    }
+  }
   
 }

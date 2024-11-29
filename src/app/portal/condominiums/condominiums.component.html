@@ -3,50 +3,13 @@
   *ngIf="isLoading">
 </app-loading-overlay>
 <p-scrollTop  />
-
 <!-- Pagina Principal -->
-<div
-    id="page"
-    class="pl-3 pr-3 background">
-    <p-breadcrumb 
-        class="max-w-full mt-3" 
-        [model]="items">
-        <ng-template 
-            pTemplate="item" 
-            let-item>
-            <ng-container 
-                *ngIf="item.routerLink; else elseBlock">
-                <a 
-                    [routerLink]="item.routerLink" 
-                    class="p-menuitem-link">
-                    <span 
-                        [ngClass]="[item.icon ? item.icon : '', 'text-color']">
-                    </span>
-                    <span 
-                        class="text-primary font-semibold">
-                        {{ item.label }}
-                    </span>
-                </a>
-            </ng-container>
-            <ng-template 
-                #elseBlock>
-                <span 
-                    class="text-color">
-                    {{ item.label }}
-                </span>
-            </ng-template>
-        </ng-template>
-    </p-breadcrumb>
-    <h1>
-        {{regionName}}
-    </h1>
-    <div
-        class="text-lg font-medium text-900 mb-3">
-        Selecionando uma linha, voce se posiciona no registro!
-    </div>
-    <p-card
-        class="card">
-        <p-iconField 
+<app-page-default
+    [pageTitle]="'Região ' + regionName"
+    pageSubtitle="Selecionando Uma linha, voce se posiciona no registro!"
+    [breadcrumbItems]="breadcrumbItems">
+    <!-- Filtro De Busca -->
+    <p-iconField 
             class="w-full"
             iconPosition="left">
             <p-inputIcon 
@@ -59,6 +22,7 @@
                 [(ngModel)]="searchFilter"
                 (input)="filterCondominiums()"/>
         </p-iconField>
+        <!-- Tabela Principal -->
         <p-table
             class="pb-3"
             [value]="filteredCondominiums"
@@ -73,7 +37,6 @@
                         *ngFor="let col of columns">
                         {{ col.label }}
                     </th>
-
                 </tr>
             </ng-template>
             <ng-template 
@@ -92,5 +55,4 @@
                 </tr>
             </ng-template>
         </p-table>
-    </p-card>
-</div>
+</app-page-default>
