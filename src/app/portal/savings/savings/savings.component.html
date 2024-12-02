@@ -53,6 +53,7 @@
                           'justify-content-center': item['leitura_atual_agua'] === 'nao_possui' || item['leitura_atual_gas'] === 'nao_possui'}">
                         <!-- Leitura da Água -->
                         <app-reading-block
+                            class="mr-5"
                             *ngIf="item['leitura_atual_agua'] !== 'nao_possui'"
                             [type]="'agua'"
                             [previousReading]="item['leitura_anterior_agua']"

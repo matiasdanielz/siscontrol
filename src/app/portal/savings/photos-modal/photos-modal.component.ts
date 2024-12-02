@@ -33,7 +33,7 @@ export class PhotosModalComponent {
   protected async openCamera(consupmitionType: string): Promise<void> {
     try {
       const photo = await Camera.getPhoto({
-        quality: 90,
+        quality: 50,
         allowEditing: false,
         resultType: CameraResultType.Uri,
         source: CameraSource.Camera
@@ -41,10 +41,10 @@ export class PhotosModalComponent {
 
       if(consupmitionType == 'agua'){
         this.newWaterPhoto = photo.webPath;
-        this.openedUnityInPhotoModal['imagem_atual_agua'] = "preenchido";
+        this.openedUnityInPhotoModal['imagem_atual_agua'] = this.newWaterPhoto;
       }else{
         this.newGasPhoto = photo.webPath;
-        this.openedUnityInPhotoModal['imagem_atual_gas'] = "preenchido";
+        this.openedUnityInPhotoModal['imagem_atual_gas'] = this.newGasPhoto;
       }
 
       const blob = await (await fetch(photo.webPath!)).blob();
@@ -57,7 +57,7 @@ export class PhotosModalComponent {
         consupmitionType: consupmitionType
       };
 
-      const response: any = "";//await this.savingsService.updatePhoto(requestItem);
+      const response: any = await this.savingsService.updatePhoto(requestItem);
 
       if (response !== 'Upload da foto realizado com sucesso!"sucesso"') {
         await this.storageService.addFailedPhoto(requestItem);

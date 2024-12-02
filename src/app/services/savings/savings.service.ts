@@ -52,7 +52,7 @@ export class SavingsService {
   }
   
   public async updatePhoto(item: any){
-    const url: string = `/api_med?metodo=enviaFoto&idCond=${item['condominiumId']}&numeroEconomia=${item['savingId']}&tipoConsumo=${item['consupmitionType']}`;
+    const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaFoto&idCond=${item['condominiumId']}&numeroEconomia=${item['savingId']}&tipoConsumo=${item['consupmitionType']}`;
   
     let formData: any = new FormData();
     formData.append('imagem', item['photo']);
