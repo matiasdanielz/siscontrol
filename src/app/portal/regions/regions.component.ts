@@ -20,9 +20,9 @@ export class RegionsComponent implements OnInit {
   protected selectedItem: any;
 
   // Tabela Principal
-  protected neighborhoodsItems: any[] = [];
-  protected neighborhoodsColumns: any[] = [];
-  protected filteredNeighborhoods: any[] = [];
+  protected regionsItems: any[] = [];
+  protected regionsColumns: any[] = [];
+  protected filteredRegions: any[] = [];
 
   // Overlay de carregamento
   protected isLoading: boolean = true;
@@ -31,16 +31,16 @@ export class RegionsComponent implements OnInit {
   protected searchFilter: string = '';
 
   constructor(
-    private neighborhoodsService: RegionsService,
+    private regionsService: RegionsService,
     private route: Router,
     private storageService: StorageService
   ) {
-    this.neighborhoodsColumns = neighborhoodsService.getRegionsColumns();
+    this.regionsColumns = regionsService.getRegionsColumns();
   }
 
   async ngOnInit(): Promise<void> {
-    this.neighborhoodsItems = await this.neighborhoodsService.getRegionsItems();
-    this.filteredNeighborhoods = this.neighborhoodsItems; // Inicia com todos os itens
+    this.regionsItems = await this.regionsService.getRegionsItems();
+    this.filteredRegions = this.regionsItems; // Inicia com todos os itens
     this.isLoading = false;
   }
 
@@ -51,7 +51,7 @@ export class RegionsComponent implements OnInit {
   }
 
   protected filterItems() {
-    this.filteredNeighborhoods = this.neighborhoodsItems.filter(item =>
+    this.filteredRegions = this.regionsItems.filter(item =>
       item['regiao'].toLowerCase().includes(this.searchFilter.toLowerCase())
     );
   }

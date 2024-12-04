@@ -76,17 +76,15 @@ export class SavingsComponent {
     const { type, value } = newReading;
 
     const requestJson = {
-      dados: {
-        idCond: selectedItem.idCond,
-        economia: selectedItem.economia,
-        leitura_atual: value,
-        tipo_consumo: type
-      }
+      "idCond": selectedItem.idCond,
+      "economia": selectedItem.economia,
+      "leitura_atual": value,
+      "tipo_consumo": type
     };
 
     const response = await this.savingsService.updateSaving(requestJson);
 
-    if (response !== 'sucesso') {
+    if (response !== 'sucesso"sucesso"') {
       await this.storageService.addFailedReading(requestJson);
       this.showError("Falha de rede! Leitura armazenada para sincronizar mais tarde.");
     }

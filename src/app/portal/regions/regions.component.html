@@ -22,8 +22,8 @@
             (input)="filterItems()" />
     </p-iconField>
     <p-table
-        [value]="filteredNeighborhoods"
-        [columns]="neighborhoodsColumns"
+        [value]="filteredRegions"
+        [columns]="regionsColumns"
         styleClass="p-datatable-xl p-datatable-striped">
         <ng-template 
             pTemplate="header" 
@@ -37,14 +37,14 @@
         </ng-template>
         <ng-template 
             pTemplate="body" 
-            let-neighborhood>
+            let-region>
             <tr 
-                (click)="openRegion(neighborhood)">
+                (click)="openRegion(region)">
                 <td>
-                    {{ neighborhood.regiao }}
+                    {{ region.regiao }}
                 </td>
                 <td>
-                    {{ neighborhood.leituras_ok }} / {{ neighborhood.leituras_totais }}
+                    {{ region.leituras_ok }} / {{ region.leituras_totais }}
                 </td>
             </tr>
         </ng-template>

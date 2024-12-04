@@ -1,0 +1,10 @@
+.single-block app-reading-block {
+    margin-right: 0 !important; /* Remove margem à direita quando só um bloco */
+  }
+  
+  .flex.justify-content-center {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  

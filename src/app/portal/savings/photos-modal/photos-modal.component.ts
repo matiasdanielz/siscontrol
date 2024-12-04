@@ -18,6 +18,12 @@ export class PhotosModalComponent {
   protected newGasPhoto: any = null;
   protected openedUnityInPhotoModal: any = { "economia": '', idCond: '', "imagem_atual_agua": null, "imagem_atual_gas": null };
 
+  //Controle De Acesso
+  protected hasWaterContracted: boolean = false;
+  protected hasGasContracted: boolean = false;
+  protected waterPhotoIsNull: boolean = false;
+  protected gasPhotoIsNull: boolean = false;
+
   constructor(
     private savingsService: SavingsService,
     private storageService: StorageService,
@@ -27,7 +33,20 @@ export class PhotosModalComponent {
 
   public openPhotoModal(openedUnityInPhotoModal: any){
     this.openedUnityInPhotoModal = openedUnityInPhotoModal;
+
+    this.setControlAcess();
+
     this.isPhotoModalOpen = true;
+  }
+
+  protected setControlAcess(){
+    //Se tem agua ou gas contratado
+    this.hasWaterContracted = this.openedUnityInPhotoModal['leitura_atual_agua'] != 'nao_possui';
+    this.hasGasContracted = this.openedUnityInPhotoModal['leitura_atual_gas'] != 'nao_possui';
+
+    //Se ja tem foto
+    this.waterPhotoIsNull = this.openedUnityInPhotoModal['imagem_atual_agua'] == null;
+    this.gasPhotoIsNull = this.openedUnityInPhotoModal['imagem_atual_gas'] == null;
   }
 
   protected async openCamera(consupmitionType: string): Promise<void> {
@@ -51,15 +70,15 @@ export class PhotosModalComponent {
       const file = new File([blob], 'foto.jpg', { type: blob.type });
 
       const requestItem = {
-        photo: file,
-        condominiumId: this.openedUnityInPhotoModal.idCond,
-        savingId: this.openedUnityInPhotoModal.economia,
-        consupmitionType: consupmitionType
+        "photo": file,
+        "idCond": this.openedUnityInPhotoModal.idCond,
+        "economia": this.openedUnityInPhotoModal.economia,
+        "tipo_consumo": consupmitionType
       };
 
       const response: any = await this.savingsService.updatePhoto(requestItem);
 
-      if (response !== 'Upload da foto realizado com sucesso!"sucesso"') {
+      if (response == "offline") {
         await this.storageService.addFailedPhoto(requestItem);
         this.showError("Falha de rede! Leitura armazenada para sincronizar mais tarde.");
       }

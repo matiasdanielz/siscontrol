@@ -81,7 +81,7 @@ export class StorageService {
     for (const photo of syncPhotos) {
       try {
         const response = await this.savingsService.updatePhoto(photo);
-        if (response !== 'Upload da foto realizado com sucesso!"sucesso"') {
+        if (response == "offline") {
           failedPhotos.push(photo);
         }
       } catch {

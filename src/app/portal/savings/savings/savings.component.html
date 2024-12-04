@@ -48,34 +48,35 @@
                     </h2>
                     <!-- Div com o conjunto de blocos de leitura de agua e gas -->
                     <div class="flex align-items-center w-full"
-                        [ngClass]="{
-                          'justify-content-between': item['leitura_atual_agua'] !== 'nao_possui' && item['leitura_atual_gas'] !== 'nao_possui',
-                          'justify-content-center': item['leitura_atual_agua'] === 'nao_possui' || item['leitura_atual_gas'] === 'nao_possui'}">
-                        <!-- Leitura da Água -->
-                        <app-reading-block
-                            class="mr-5"
-                            *ngIf="item['leitura_atual_agua'] !== 'nao_possui'"
-                            [type]="'agua'"
-                            [previousReading]="item['leitura_anterior_agua']"
-                            [currentReading]="item['leitura_atual_agua']"
-                            (readingChanged)="readingChanged(item, $event)">
-                        </app-reading-block>
-                        <!-- Leitura do Gás -->
-                        <app-reading-block
-                            *ngIf="item['leitura_atual_gas'] !== 'nao_possui'"
-                            [type]="'gas'"
-                            [previousReading]="item['leitura_anterior_gas']"
-                            [currentReading]="item['leitura_atual_gas']"
-                            (readingChanged)="readingChanged(item, $event)">
-                        </app-reading-block>
-                    </div>
+                    [ngClass]="{
+                      'justify-content-between': item['leitura_atual_agua'] !== 'nao_possui' && item['leitura_atual_gas'] !== 'nao_possui',
+                      'justify-content-center single-block': item['leitura_atual_agua'] === 'nao_possui' || item['leitura_atual_gas'] === 'nao_possui'}">
+                   <!-- Leitura da Água -->
+                   <app-reading-block
+                       class="mr-5"
+                       *ngIf="item['leitura_atual_agua'] !== 'nao_possui'"
+                       [type]="'agua'"
+                       [previousReading]="item['leitura_anterior_agua']"
+                       [currentReading]="item['leitura_atual_agua']"
+                       (readingChanged)="readingChanged(item, $event)">
+                   </app-reading-block>
+                   <!-- Leitura do Gás -->
+                   <app-reading-block
+                       *ngIf="item['leitura_atual_gas'] !== 'nao_possui'"
+                       [type]="'gas'"
+                       [previousReading]="item['leitura_anterior_gas']"
+                       [currentReading]="item['leitura_atual_gas']"
+                       (readingChanged)="readingChanged(item, $event)">
+                   </app-reading-block>
+               </div>
+               
                     <!-- Botão que abre o modal das fotos -->
                     <p-button
                         *ngIf="item['imagem'] == 'sim'"
                         label="Fotos"
                         icon="pi pi-camera"
                         (onClick)="openPhotoModalComponent(item)"
-                        [badge]="(item['imagem_atual_agua'] == null || item['imagem_atual_gas'] == null) ? 'Pend.' : ''"
+                        [badge]="(item['imagem_atual_agua'] == null && item['leitura_atual_agua'] != 'nao_possui') || (item['imagem_atual_gas'] == null && item['leitura_atual_gas'] != 'nao_possui') ? 'Pend.' : ''"
                         badgeClass="p-badge-danger">
                     </p-button>
                 </div>

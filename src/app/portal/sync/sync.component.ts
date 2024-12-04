@@ -1,4 +1,6 @@
 import { Component, OnInit } from '@angular/core';
+import { MenuItem } from 'primeng/api';
+import { SavingsService } from 'src/app/services/savings/savings.service';
 import { StorageService } from 'src/app/services/storage/storage.service';
 
 @Component({
@@ -8,26 +10,40 @@ import { StorageService } from 'src/app/services/storage/storage.service';
 })
 export class SyncComponent implements OnInit {
 
-  // Tabela Principal
-  protected amountOfSyncPendencies: string = '';
+  //Overlay de carregamento
   protected isLoading: boolean = true;
 
+  //Breadcrumb
+  protected breadcrumbItems: MenuItem[] = [
+    {
+      label: 'Leituras Penduradas',
+    },
+  ];
+
+  // Tabela Principal
+  protected syncColumns: any[] = [];
+  protected filteredSyncItems: any[] = [];
+  protected amountOfSyncPendencies: string = '';
+
   constructor(
-    private storageService: StorageService
+    private storageService: StorageService,
+    private savingsService: SavingsService
   ) {}
 
   async ngOnInit(): Promise<void> {
-    await this.setAmountOfSyncPendencies();
+    await this.updateSyncPendencies();
+
     this.isLoading = false;
   }
 
-  protected async setAmountOfSyncPendencies() {
+  protected async updateSyncPendencies() {
+    this.syncColumns = await this.savingsService.getSavingColumns();
+
     const failedReadings = await this.storageService.getFailedReadingItems();
     const failedPhotos = await this.storageService.getFailedPhotoItems();
 
-    console.log(failedPhotos);
-    console.log(failedReadings);
-    
+    this.filteredSyncItems = [...failedReadings, ...failedPhotos];
+
     const totalFailures = (failedReadings?.length || 0) + (failedPhotos?.length || 0);
     this.amountOfSyncPendencies = totalFailures.toString();
   }
@@ -37,7 +53,7 @@ export class SyncComponent implements OnInit {
 
     await this.storageService.updateAllFailedReadingItems();
 
-    await this.setAmountOfSyncPendencies();
+    await this.updateSyncPendencies();
 
     this.isLoading = false;
   }

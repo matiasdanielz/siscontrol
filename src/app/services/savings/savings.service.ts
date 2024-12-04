@@ -1,6 +1,12 @@
 import { HttpClient } from '@angular/common/http';
 import { Injectable } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { Network } from '@capacitor/network';
+
+interface column{
+  property: string,
+  label: string
+}
 
 @Injectable({
   providedIn: 'root'
@@ -20,6 +26,24 @@ export class SavingsService {
     });
   }
 
+  public getSavingColumns(): column[]{
+    return [
+      {
+        property: 'saving',
+        label: 'Economia'
+      },
+      {
+        property: 'condominiumId',
+        label: 'Id Cond.'
+      },
+      {
+        property: 'readType',
+        label: 'Tipo Consumo'
+      }
+    ];
+  }
+
+
   public async getSavingItems(): Promise<any>{
     const url: string = `https://conline.solucaoadm.com/api_med?metodo=getCond&idCond=${this.selectedCondominium}&idUsuario=${this.userId}`;
 
@@ -33,8 +57,8 @@ export class SavingsService {
   
     // Converte o objeto para FormData
     let formData: any = new FormData();
-    formData.append('dados', JSON.stringify(item.dados)); // Formato esperado no body
-  
+    formData.append('dados', JSON.stringify(item)); // Formato esperado no body
+
     try {
       const response: any = await this.http.post(url, formData, { responseType: 'text' }).toPromise();
   
@@ -50,26 +74,28 @@ export class SavingsService {
       return null;
     }
   }
+
+  public async updatePhoto(item: any) {
+    const status = await Network.getStatus();
+
+    if (!status.connected) {
+      console.error('Erro: Dispositivo está offline.');
+      return 'offline';
+    }
+
+    try{
+      const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaFoto&idCond=${item['idCond']}&numeroEconomia=${item['economia']}&tipoConsumo=${item['tipo_consumo']}`;
   
-  public async updatePhoto(item: any){
-    const url: string = `https://conline.solucaoadm.com/api_med?metodo=enviaFoto&idCond=${item['condominiumId']}&numeroEconomia=${item['savingId']}&tipoConsumo=${item['consupmitionType']}`;
+      let formData: any = new FormData();
+      formData.append('imagem', item['photo']);
   
-    let formData: any = new FormData();
-    formData.append('imagem', item['photo']);
+      const response: any = await this.http.post(url, formData).toPromise();
   
-    try {
-      const response: any = await this.http.post(url, formData, { responseType: 'text' }).toPromise();
-  
-      if (response && response.toLowerCase().includes('preflight')) {
-        console.warn('Resposta preflight ignorada:', response);
-        return null;
-      }
-  
+
       return response;
-    } catch (error) {
-      console.error('Erro ao fazer o parsing da resposta:', error);
-      return null;
+    }catch(error: any){
+      return error;
     }
   }
-  
+
 }

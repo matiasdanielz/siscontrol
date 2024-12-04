@@ -1,21 +1,42 @@
 <!-- Overlay De Carregamento -->
-<app-loading-overlay *ngIf="isLoading"></app-loading-overlay>
-
-<!-- Pagina Principal -->
-<div
-    id="page"
-    class="flex flex-column align-items-center justify-content-center background">
-    <h1 
-        class="text-center mb-4">
-        {{amountOfSyncPendencies}} Leituras "Penduradas"
-    </h1>
-    <button 
-        type="button" 
-        pButton
-        pRipple
-        label="Sincronizar Pendencias"
-        icon="pi pi-sync"
-        (click)="updateAllFailedReadingItems()"
-        [disabled]="amountOfSyncPendencies == '0'">
-    </button>
-</div>
+<app-loading-overlay
+    *ngIf="isLoading">
+</app-loading-overlay>
+<app-page-default
+    pageTitle="Leituras Penduradas"
+    [pageSubtitle]="amountOfSyncPendencies + ' Leituras Penduradas'"
+    [breadcrumbItems]="breadcrumbItems">
+    
+    <!-- Container para centralizar o botão -->
+    <div class="flex justify-content-center align-items-center mb-5" style="height: 30px;">
+        <button
+            type="button" 
+            pButton
+            pRipple
+            label="Sincronizar Pendências"
+            icon="pi pi-sync"
+            (click)="updateAllFailedReadingItems()"
+            [disabled]="amountOfSyncPendencies == '0'">
+        </button>
+    </div>
+    <!-- Tabela com os itens -->
+    <p-table
+        [value]="filteredSyncItems"
+        [columns]="syncColumns"
+        styleClass="p-datatable-xl p-datatable-striped">
+        <ng-template pTemplate="header" let-columns>
+            <tr>
+                <th *ngFor="let col of columns">
+                    {{ col.label }}
+                </th>
+            </tr>
+        </ng-template>
+        <ng-template pTemplate="body" let-neighborhood>
+            <tr>
+                <td>{{ neighborhood.economia }}</td>
+                <td>{{ neighborhood.idCond }}</td>
+                <td>{{ neighborhood.tipo_consumo }}</td>
+            </tr>
+        </ng-template>
+    </p-table>
+</app-page-default>

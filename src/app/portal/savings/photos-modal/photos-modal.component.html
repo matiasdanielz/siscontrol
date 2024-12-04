@@ -8,6 +8,7 @@
     <p-tabView
         class="mb-7">
         <p-tabPanel
+            *ngIf="hasWaterContracted"
             header="Água">
             <ng-template
                 pTemplate="header">
@@ -18,8 +19,8 @@
                         Água
                     </span>
                     <p-badge
-                        [value]="openedUnityInPhotoModal['imagem_atual_agua'] == null && newWaterPhoto == null ? 'Pendente' : 'Concluído'"
-                        [severity]="openedUnityInPhotoModal['imagem_atual_agua'] == null && newWaterPhoto == null ? 'danger' : 'success'" />
+                        [value]="waterPhotoIsNull && newWaterPhoto == null ? 'Pendente' : 'Concluído'"
+                        [severity]="waterPhotoIsNull && newWaterPhoto == null ? 'danger' : 'success'" />
                 </div>
             </ng-template>
             <div
@@ -39,6 +40,7 @@
         </p-tabPanel>
 
         <p-tabPanel
+            *ngIf="hasGasContracted"
             header="Gás">
             <ng-template
                 pTemplate="header">
@@ -49,8 +51,8 @@
                     Gás
                     </span>
                     <p-badge
-                        [value]="openedUnityInPhotoModal['imagem_atual_gas'] == null && newGasPhoto == null ? 'Pendente' : 'Concluído'"
-                        [severity]="openedUnityInPhotoModal['imagem_atual_gas'] == null && newGasPhoto == null ? 'danger' : 'success'" />
+                        [value]="gasPhotoIsNull && newGasPhoto == null ? 'Pendente' : 'Concluído'"
+                        [severity]="gasPhotoIsNull && newGasPhoto == null ? 'danger' : 'success'" />
                 </div>
             </ng-template>
             <div
@@ -60,6 +62,7 @@
                     [src]="newGasPhoto != null ? newGasPhoto : openedUnityInPhotoModal['imagem_atual_gas']"
                     class="w-full mt-3 photo-border"
                     height="250px" />
+
                 <p-button
                     class="mt-3"
                     label="Substituir Foto"
