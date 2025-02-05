@@ -23,7 +23,6 @@ export class AppComponent {
 
   async initStorage() {
     await this.storage.create();
-    //this.storage.clear();
   }
 
   async ngOnInit(): Promise<void> {
