@@ -87,6 +87,11 @@ export class SavingsComponent {
     if (response !== 'sucesso"sucesso"') {
       await this.storageService.addFailedReading(requestJson);
       this.showError("Falha de rede! Leitura armazenada para sincronizar mais tarde.");
+    }else {
+      const item = this.condominiumValues.find((condo: any) => condo.economia === selectedItem.economia);
+      if (item) {
+        item[`leitura_atual_${newReading.type}`] = value;
+      }
     }
   }
 
