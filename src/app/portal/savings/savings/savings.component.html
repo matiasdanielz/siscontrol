@@ -8,6 +8,11 @@
 <app-photos-modal
     #appPhotoModal>
 </app-photos-modal>
+<!-- Modal informando que há leituras pendentes-->
+<app-pending-readings-modal
+    #pendingReadingsModal
+    (modalResponse)="handleModalResponse($event)">
+</app-pending-readings-modal>
 <!-- Página Principal -->
 <app-page-default
     [pageTitle]="condominiumTitle"
@@ -25,8 +30,7 @@
             type="text"
             pInputText
             placeholder="Buscar"
-            [(ngModel)]="searchFilter"
-            (input)="filterApartments()" />
+            [(ngModel)]="searchFilter" />
     </p-iconField>
     <!-- Lista Principal -->
     <p-dataView

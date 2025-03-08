@@ -35,6 +35,9 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
+import { TabMenuModule } from 'primeng/tabmenu';
+import { ConfirmDialogModule } from 'primeng/confirmdialog';
+import { ToastModule } from 'primeng/toast';
 
 
 @NgModule({
@@ -74,7 +77,10 @@ import { TabViewModule } from 'primeng/tabview';
     ScrollTopModule,
     InputNumberModule,
     TabViewModule,
-    SavingsModule
+    SavingsModule,
+    TabMenuModule,
+    ConfirmDialogModule,
+    ToastModule
   ]
 })
 export class PortalModule { }

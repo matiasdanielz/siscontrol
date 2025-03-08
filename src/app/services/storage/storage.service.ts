@@ -7,10 +7,11 @@ import { BehaviorSubject } from 'rxjs';
   providedIn: 'root'
 })
 export class StorageService {
-
+  //Leituras Falhadas
   private failedReadingsCountSubject = new BehaviorSubject<number>(0);
   public failedReadingsCount$ = this.failedReadingsCountSubject.asObservable();
 
+  //Fotos Falhadas
   private failedPhotosCountSubject = new BehaviorSubject<number>(0);
   public failedPhotosCount$ = this.failedPhotosCountSubject.asObservable();
 
@@ -18,6 +19,24 @@ export class StorageService {
     private storage: Storage,
     private savingsService: SavingsService
   ) {}
+
+  /** Métodos para leituras concluidas **/
+
+  public async getFinishedReadingItems(): Promise<any[]> {
+    const finishedReadings = await this.storage.get('finishedReadings');
+    return finishedReadings || [];
+  }
+
+  public async setFinishedReadingItems(finishedReadings: any[]) {
+    await this.storage.set('finishedReadings', finishedReadings);
+    //this.finishedReadingsCountSubject.next(finishedReadings.length);
+  }
+
+  public async addFinishedReading(finishedReading: any) {
+    const finishedReadings = await this.getFinishedReadingItems();
+    finishedReadings.push(finishedReading);
+    await this.setFinishedReadingItems(finishedReadings);
+  }
 
   /** Métodos para falhas de leitura **/
 
@@ -64,6 +83,8 @@ export class StorageService {
         const response = await this.savingsService.updateSaving(item);
         if (response !== 'sucesso"sucesso"') {
           failedItems.push(item);
+        }else{
+          this.addFinishedReading(item);
         }
       } catch {
         failedItems.push(item);
@@ -92,7 +113,7 @@ export class StorageService {
     await this.setFailedPhotoItems(failedPhotos);
   }
 
-  /** Métodos de usuário e região (sem mudanças) **/
+  /** Métodos de usuário e região **/
 
   public async setUserId(userId: string) {
     await this.storage.set('userId', userId);

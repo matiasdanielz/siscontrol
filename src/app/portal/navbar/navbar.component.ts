@@ -50,7 +50,7 @@ export class NavbarComponent implements OnInit, OnDestroy {
   }
 
   protected async signOut() {
-    await this.storageService.logOutUser();
     this.route.navigate(['/', 'LogIn']);
+    await this.storageService.logOutUser();
   }
 }

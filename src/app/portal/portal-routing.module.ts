@@ -6,6 +6,7 @@ import { CondominiumsComponent } from './condominiums/condominiums.component';
 import { FaqComponent } from './faq/faq.component';
 import { SyncComponent } from './sync/sync.component';
 import { SavingsComponent } from './savings/savings/savings.component';
+import { CanDeactivateGuard } from '../guards/can-deactivate.guard';
 
 const routes: Routes = [
 
@@ -23,7 +24,8 @@ const routes: Routes = [
       },
       {
         path: 'Savings',
-        component: SavingsComponent
+        component: SavingsComponent,
+        canDeactivate: [CanDeactivateGuard]
       },
       {
         path: 'Faq',

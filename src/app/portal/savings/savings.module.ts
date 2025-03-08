@@ -29,12 +29,14 @@ import { FormsModule } from '@angular/forms';
 import { GenericComponentsModule } from 'src/app/generic-components/generic-components.module';
 import { PhotosModalComponent } from './photos-modal/photos-modal.component';
 import { ReadingBlockComponent } from './reading-block/reading-block.component';
+import { PendingReadingsModalComponent } from './pending-readings-modal/pending-readings-modal.component';
 
 @NgModule({
   declarations: [
     SavingsComponent,
     PhotosModalComponent,
-    ReadingBlockComponent
+    ReadingBlockComponent,
+    PendingReadingsModalComponent
   ],
   imports: [
     CommonModule,

@@ -5,7 +5,8 @@
     <!-- Breadcrumb -->
     <p-breadcrumb
         class="max-w-full mt-3"
-        [model]="breadcrumbItems">
+        [model]="breadcrumbItems"
+        *ngIf="breadcrumbItems.length > 0">
         <ng-template
             pTemplate="item"
             let-item>
@@ -38,11 +39,13 @@
     </h1>
     <!-- Subtitulo -->
     <div
+        *ngIf="pageSubtitle != ''"
         class="text-lg font-medium text-900 mb-3">
         {{pageSubtitle}}
     </div>
     <!-- Observação -->
     <div
+        *ngIf="pageObservation != ''"
         class="text-lg font-medium text-900 mb-3">
         {{pageObservation}}
     </div>

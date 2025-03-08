@@ -8,9 +8,9 @@ import { MenuItem } from 'primeng/api';
 })
 export class PageDefaultComponent {
   //Cabeçalho
-  @Input() pageTitle!: string;
-  @Input() pageSubtitle!: string;
-  @Input() pageObservation!: string;
+  @Input() pageTitle: string = '';
+  @Input() pageSubtitle: string = '';
+  @Input() pageObservation: string = '';
 
   //Breadcrumb
   @Input() breadcrumbItems: MenuItem[] = [];

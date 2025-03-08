@@ -30,8 +30,8 @@ export class NavbarService {
         }
       },
       {
-        label: 'Sincronização',
-        icon: 'pi pi-sync',
+        label: 'Historico De Leituras',
+        icon: 'pi pi-history',
         badge: syncCount,
         command: () => {
           this.route.navigate(['/', 'Sync']);

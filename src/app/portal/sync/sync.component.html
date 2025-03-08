@@ -2,41 +2,159 @@
 <app-loading-overlay
     *ngIf="isLoading">
 </app-loading-overlay>
+<!-- Mensagem de toast-->
+<p-toast />
+<!-- Modal para confirmar a exclusão do historico -->
+<p-confirmDialog />
+<!-- Pagina Principal -->
 <app-page-default
-    pageTitle="Leituras Penduradas"
-    [pageSubtitle]="amountOfSyncPendencies + ' Leituras Penduradas'"
-    [breadcrumbItems]="breadcrumbItems">
-    
-    <!-- Container para centralizar o botão -->
-    <div class="flex justify-content-center align-items-center mb-5" style="height: 30px;">
-        <button
-            type="button" 
-            pButton
-            pRipple
-            label="Sincronizar Pendências"
-            icon="pi pi-sync"
-            (click)="updateAllFailedReadingItems()"
-            [disabled]="amountOfSyncPendencies == '0'">
-        </button>
-    </div>
-    <!-- Tabela com os itens -->
-    <p-table
-        [value]="filteredSyncItems"
-        [columns]="syncColumns"
-        styleClass="p-datatable-xl p-datatable-striped">
-        <ng-template pTemplate="header" let-columns>
-            <tr>
-                <th *ngFor="let col of columns">
-                    {{ col.label }}
-                </th>
-            </tr>
-        </ng-template>
-        <ng-template pTemplate="body" let-neighborhood>
-            <tr>
-                <td>{{ neighborhood.economia }}</td>
-                <td>{{ neighborhood.idCond }}</td>
-                <td>{{ neighborhood.tipo_consumo }}</td>
-            </tr>
-        </ng-template>
-    </p-table>
+    pageTitle="Historicos De Leituras">
+    <!-- Tabs -->
+    <p-tabView 
+        styleClass="tabview-custom w-full"
+        class="flex justify-content-center">
+        <p-tabPanel>
+            <ng-template 
+                pTemplate="header">
+                <div 
+                    class="flex align-items-center gap-2">
+                    <i 
+                        class="pi pi-times-circle" 
+                        style="color: red">
+                    </i>
+                    <span 
+                        class="font-bold white-space-nowrap m-0">
+                        "Penduradas"
+                    </span>
+                </div>
+            </ng-template>
+            <!-- Container para centralizar o botão -->
+            <div 
+                class="flex justify-content-center align-items-center mb-5"
+                style="height: 30px;">
+                <button
+                    type="button"
+                    pButton
+                    pRipple
+                    label="Sincronizar Pendências"
+                    icon="pi pi-sync"
+                    (click)="retryFailedSync()"
+                    [disabled]="amountOfSyncPendencies == '0'">
+                </button>
+            </div>
+            <!-- Campo para filtrar registros -->
+            <p-iconField
+            class="w-full"
+            iconPosition="left">
+            <p-inputIcon
+                styleClass="pi pi-search" />
+            <input
+                class="w-full mb-3"
+                type="text"
+                pInputText
+                placeholder="Buscar"
+                [(ngModel)]="pendingItemsFilter"
+                (input)="filterPendingSyncItems()" />
+            </p-iconField>
+            <!-- Tabela com os itens -->
+            <p-table
+                [value]="filteredPendingSyncItems"
+                [columns]="syncColumns"
+                styleClass="p-datatable-xl p-datatable-striped">
+                <ng-template 
+                    pTemplate="header" 
+                    let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns">
+                            {{ col.label }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template 
+                    pTemplate="body" 
+                    let-neighborhood>
+                    <tr>
+                        <td>{{ neighborhood.leitura_atual }}</td>
+                        <td>{{ neighborhood.economia }}</td>
+                        <td>{{ neighborhood.idCond }}</td>
+                        <td>{{ neighborhood.tipo_consumo }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+        <p-tabPanel 
+            header="Header II">
+            <ng-template 
+                pTemplate="header">
+                <div 
+                    class="flex align-items-center gap-2">
+                    <i 
+                        class="pi pi-check-circle" 
+                        style="color: green">
+                    </i>
+                    <span 
+                        class="font-bold white-space-nowrap m-0">
+                        Concluidas
+                    </span>
+                </div>
+            </ng-template>
+            <!-- Container para centralizar o botão -->
+            <div 
+                class="flex justify-content-center align-items-center mb-5"
+                style="height: 30px;">
+                <button
+                    type="button"
+                    pButton
+                    pRipple
+                    label="Apagar Historico"
+                    icon="pi pi-trash"
+                    severity="danger"
+                    (click)="openDeletionDialog($event)"
+                    [disabled]="finishedSyncItems.length == 0">
+                </button>
+            </div>
+            <!-- Campo para filtrar registros -->
+            <p-iconField
+                class="w-full"
+                iconPosition="left">
+                <p-inputIcon
+                    styleClass="pi pi-search" />
+                <input
+                    class="w-full mb-3"
+                    type="text"
+                    pInputText
+                    placeholder="Buscar"
+                    [(ngModel)]="finishedItemsFilter"
+                    (input)="filterFinishedSyncItems()" />
+            </p-iconField>
+            <!-- Tabela com os itens cooncluidos-->
+            <p-table
+                [value]="filteredFinishedSyncItems"
+                [columns]="syncColumns"
+                styleClass="p-datatable-xl p-datatable-striped"
+                responsiveLayout="stack" >
+                <ng-template 
+                    pTemplate="header" 
+                    let-columns>
+                    <tr>
+                        <th
+                            *ngFor="let col of columns">
+                            {{ col.label }}
+                        </th>
+                    </tr>
+                </ng-template>
+                <ng-template 
+                    pTemplate="body" 
+                    let-neighborhood>
+                    <tr>
+                        <td>{{ neighborhood.leitura_atual }}</td>
+                        <td>{{ neighborhood.economia }}</td>
+                        <td>{{ neighborhood.idCond }}</td>
+                        <td>{{ neighborhood.tipo_consumo }}</td>
+                    </tr>
+                </ng-template>
+            </p-table>
+        </p-tabPanel>
+    </p-tabView>
 </app-page-default>

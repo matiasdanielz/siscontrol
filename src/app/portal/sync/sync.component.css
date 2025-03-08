@@ -14,3 +14,13 @@
     overflow-y: auto; /* Habilita rolagem vertical caso o conteúdo exceda */
     min-width: 100%;
 }
+
+::ng-deep .p-tabview-nav {
+    justify-content: center !important;
+}
+
+::ng-deep .tabview-custom {
+    width: 100%;
+    max-width: 100%;
+    overflow-x: hidden;
+}

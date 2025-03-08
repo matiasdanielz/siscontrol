@@ -29,6 +29,10 @@ export class SavingsService {
   public getSavingColumns(): column[]{
     return [
       {
+        property: 'leitural_atual',
+        label: 'Leitura'
+      },
+      {
         property: 'saving',
         label: 'Economia'
       },
@@ -39,7 +43,7 @@ export class SavingsService {
       {
         property: 'readType',
         label: 'Tipo Consumo'
-      }
+      },
     ];
   }
 
