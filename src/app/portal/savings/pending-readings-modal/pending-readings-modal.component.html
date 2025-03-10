@@ -4,8 +4,7 @@
     header="Leituras Pendentes"
     [style]="{ width: '400px' }"
     closable="false">
-    
-    <p>Existem leituras ou fotos pendentes nas seguintes unidades:</p>
+    <p>{{modalText}}</p>
 
     <ul>
         <li *ngFor="let unit of pendingUnits">Unidade Nº {{ unit }}</li>

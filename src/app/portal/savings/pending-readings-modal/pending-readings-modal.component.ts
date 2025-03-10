@@ -7,17 +7,25 @@ import { Component, EventEmitter, Output } from '@angular/core';
 })
 export class PendingReadingsModalComponent {
   protected isModalOpen: boolean = false;
-  protected pendingUnits: string[] = []; // Lista de unidades pendentes
+  protected pendingUnits: string[] = [];
+  protected modalText: string = "";
 
   @Output() modalResponse = new EventEmitter<boolean>();
 
-  public openModal(units: string[]) {
-    this.pendingUnits = units; // Armazena as unidades pendentes
+  public openPendingReadingsModal(units: string[]) {
+    this.pendingUnits = units;
+    this.modalText = "Existem leituras pendentes que precisam ser preenchidas antes de sair.";
+    this.isModalOpen = true;
+  }
+
+  public openReadingsNotFoundInStorageModal(units: string[]) {
+    this.pendingUnits = units;
+    this.modalText = "Algumas unidades do condomínio atual não foram encontradas no seu historico de leituras (STORAGE)";
     this.isModalOpen = true;
   }
 
   public closeModal(shouldLeave: boolean) {
     this.isModalOpen = false;
-    this.modalResponse.emit(shouldLeave); // Emite a resposta do usuário
+    this.modalResponse.emit(shouldLeave);
   }
 }
