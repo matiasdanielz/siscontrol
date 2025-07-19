@@ -18,12 +18,6 @@ export class PendingReadingsModalComponent {
     this.isModalOpen = true;
   }
 
-  public openReadingsNotFoundInStorageModal(units: string[]) {
-    this.pendingUnits = units;
-    this.modalText = "Algumas unidades do condomínio atual não foram encontradas no seu historico de leituras (STORAGE)";
-    this.isModalOpen = true;
-  }
-
   public closeModal(shouldLeave: boolean) {
     this.isModalOpen = false;
     this.modalResponse.emit(shouldLeave);

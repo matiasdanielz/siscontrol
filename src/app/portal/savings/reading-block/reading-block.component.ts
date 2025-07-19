@@ -11,7 +11,7 @@ export class ReadingBlockComponent {
   @Input() currentReading!: string | number;
   @Output() readingChanged = new EventEmitter<{ type: string, value: string | number }>();
 
-  onReadingChanged(value: string | number): void {
+  protected onReadingChanged(value: string | number): void {
     this.readingChanged.emit({ type: this.type, value });
   }
 }

@@ -6,6 +6,7 @@ import { PhotosModalComponent } from '../photos-modal/photos-modal.component';
 import { CanComponentDeactivate } from 'src/app/guards/can-deactivate.guard';
 import { PendingReadingsModalComponent } from '../pending-readings-modal/pending-readings-modal.component';
 import { Observable } from 'rxjs';
+import { FailedReadingModalComponent } from '../failed-reading-modal/failed-reading-modal.component';
 
 @Component({
   selector: 'app-savings',
@@ -16,6 +17,7 @@ import { Observable } from 'rxjs';
 export class SavingsComponent implements CanComponentDeactivate, OnInit {
   @ViewChild('appPhotoModal', { static: true }) appPhotoModal!: PhotosModalComponent;
   @ViewChild('pendingReadingsModal', { static: true }) pendingReadingsModal!: PendingReadingsModalComponent;
+  @ViewChild('failedReadingdsModal', { static: true }) failedReadingdsModal!: FailedReadingModalComponent;
 
   protected condominiumTitle = "";
   protected condominiumId = "";
@@ -37,7 +39,7 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
     private savingsService: SavingsService,
     private storageService: StorageService,
     private messageService: MessageService
-  ) {}
+  ) { }
 
   async ngOnInit(): Promise<void> {
     this.condominiumValues = await this.savingsService.getSavingItems();
@@ -59,7 +61,7 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
           if (pendingUnits.length) {
             this.pendingReadingsModal.openPendingReadingsModal(pendingUnits);
           } else if (unprocessedUnits.length) {
-            this.pendingReadingsModal.openReadingsNotFoundInStorageModal(unprocessedUnits);
+            this.failedReadingdsModal.open(unprocessedUnits);
           } else {
             observer.next(true);
             observer.complete();
@@ -74,34 +76,34 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
   }
 
   private async getPendingUnits(): Promise<string[]> {
-    const isReadingPending = (reading: any) => !reading && reading !== 'nao_possui';
+    const isReadingPending = (reading: any) =>
+      (reading === null || reading === undefined || reading === '') && reading !== 'nao_possui';
     const isPhotoPending = (photo: any, reading: any) => !photo && reading !== 'nao_possui';
 
     return this.filteredApartments
       .filter(item =>
-        isReadingPending(item.leitura_atual_agua) || 
-        isReadingPending(item.leitura_atual_gas) || 
-        (item.imagem === 'sim' && 
-          (isPhotoPending(item.imagem_atual_agua, item.leitura_atual_agua) || 
-           isPhotoPending(item.imagem_atual_gas, item.leitura_atual_gas)))
+        isReadingPending(item.leitura_atual_agua) ||
+        isReadingPending(item.leitura_atual_gas) ||
+        (item.imagem === 'sim' &&
+          (isPhotoPending(item.imagem_atual_agua, item.leitura_atual_agua) ||
+            isPhotoPending(item.imagem_atual_gas, item.leitura_atual_gas)))
       )
       .map(({ economia }) => `${economia}`);
   }
 
   private async getUnprocessedUnits(): Promise<string[]> {
-    const processedUnitsSet = new Set(
+    const unprocessedUnits = new Set(
       [
         ...(await this.storageService.getFailedReadingItems()),
-        ...(await this.storageService.getFinishedReadingItems()),
-      ].map(({ idCond, economia}) => `${idCond}-${economia}`)
+      ].map(({ idCond, economia }) => `${idCond}-${economia}`)
     );
 
     return this.filteredApartments
-      .filter(({ idCond, economia}) => {
-        return !processedUnitsSet.has(`${idCond}-${economia}`)
-    })
-      .map(({ economia }) => economia);
-  }  
+      .filter(({ idCond, economia }) => {
+        return unprocessedUnits.has(`${idCond}-${economia}`)
+      })
+      .map(({ idCond, economia }) => `${idCond}-${economia}`);
+  }
 
   protected handleModalResponse(shouldLeave: boolean): void {
     this.modalResolver?.(shouldLeave);
@@ -113,25 +115,27 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
   }
 
   protected async readingChanged(selectedItem: any, { type, value }: { type: string; value: number | string }): Promise<void> {
-    this.hasChanges = true;
-    const requestJson = {
-      idCond: selectedItem.idCond,
-      economia: selectedItem.economia,
-      leitura_atual: value,
-      tipo_consumo: type
-    };
+    if (value !== null && value !== undefined && value !== '') {
+      this.hasChanges = true;
+      const requestJson = {
+        idCond: selectedItem.idCond,
+        economia: selectedItem.economia,
+        leitura_atual: value,
+        tipo_consumo: type
+      };
 
-    const response = await this.savingsService.updateSaving(requestJson);
+      const response = await this.savingsService.updateSaving(requestJson);
 
-    if (response !== 'sucesso"sucesso"') {
-      await this.storageService.addFailedReading(requestJson);
-      this.showMessage('error', 'Erro', 'Falha de rede! Leitura armazenada para sincronizar mais tarde.');
-    } else {
-      const condo = this.condominiumValues.find(condo => condo.economia === selectedItem.economia);
-      if (condo) {
-        condo[`leitura_atual_${type}`] = value;
+      if (response !== 'sucesso"sucesso"') {
+        await this.storageService.addFailedReading(requestJson);
+        this.showMessage('error', 'Erro', 'Falha de rede! Leitura armazenada para sincronizar mais tarde.');
+      } else {
+        const condo = this.condominiumValues.find(condo => condo.economia === selectedItem.economia);
+        if (condo) {
+          condo[`leitura_atual_${type}`] = value;
+        }
+        await this.storageService.addFinishedReading(requestJson);
       }
-      await this.storageService.addFinishedReading(requestJson);
     }
   }
 

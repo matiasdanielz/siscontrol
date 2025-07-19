@@ -1,9 +1,15 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { SavingsComponent } from './savings/savings.component';
+import { GenericComponentsModule } from 'src/app/generic-components/generic-components.module';
+import { PhotosModalComponent } from './photos-modal/photos-modal.component';
+import { ReadingBlockComponent } from './reading-block/reading-block.component';
+import { PendingReadingsModalComponent } from './pending-readings-modal/pending-readings-modal.component';
+import { FailedReadingModalComponent } from './failed-reading-modal/failed-reading-modal.component';
+import { FormsModule } from '@angular/forms';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 //Importações Prime-ng
-import { MenubarModule } from 'primeng/menubar';
 import { AvatarModule } from 'primeng/avatar';
 import { TableModule } from 'primeng/table';
 import { CardModule } from 'primeng/card';
@@ -24,19 +30,16 @@ import { BreadcrumbModule } from 'primeng/breadcrumb';
 import { ScrollTopModule } from 'primeng/scrolltop';
 import { InputNumberModule } from 'primeng/inputnumber';
 import { TabViewModule } from 'primeng/tabview';
-import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
-import { FormsModule } from '@angular/forms';
-import { GenericComponentsModule } from 'src/app/generic-components/generic-components.module';
-import { PhotosModalComponent } from './photos-modal/photos-modal.component';
-import { ReadingBlockComponent } from './reading-block/reading-block.component';
-import { PendingReadingsModalComponent } from './pending-readings-modal/pending-readings-modal.component';
+import { ToastModule } from 'primeng/toast';
+
 
 @NgModule({
   declarations: [
     SavingsComponent,
     PhotosModalComponent,
     ReadingBlockComponent,
-    PendingReadingsModalComponent
+    PendingReadingsModalComponent,
+    FailedReadingModalComponent
   ],
   imports: [
     CommonModule,
@@ -63,6 +66,7 @@ import { PendingReadingsModalComponent } from './pending-readings-modal/pending-
     ScrollTopModule,
     InputNumberModule,
     TabViewModule,
+    ToastModule
   ]
 })
 export class SavingsModule { }
