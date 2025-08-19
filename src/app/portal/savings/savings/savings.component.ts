@@ -11,13 +11,17 @@ import { FailedReadingModalComponent } from '../failed-reading-modal/failed-read
 @Component({
   selector: 'app-savings',
   templateUrl: './savings.component.html',
-  styleUrl: './savings.component.css',
+  styleUrls: ['./savings.component.css'],
   providers: [MessageService],
 })
 export class SavingsComponent implements CanComponentDeactivate, OnInit {
   @ViewChild('appPhotoModal', { static: true }) appPhotoModal!: PhotosModalComponent;
   @ViewChild('pendingReadingsModal', { static: true }) pendingReadingsModal!: PendingReadingsModalComponent;
   @ViewChild('failedReadingdsModal', { static: true }) failedReadingdsModal!: FailedReadingModalComponent;
+
+  protected successfulReadingsCount = 0;
+  protected failedReadingsCount = 0;
+  protected pendingReadingsCount = 0;
 
   protected condominiumTitle = "";
   protected condominiumId = "";
@@ -39,12 +43,14 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
     private savingsService: SavingsService,
     private storageService: StorageService,
     private messageService: MessageService
-  ) { }
+  ) {}
 
   async ngOnInit(): Promise<void> {
     this.condominiumValues = await this.savingsService.getSavingItems();
     const { condominio, idCond, observacao } = this.condominiumValues[0] || {};
     Object.assign(this, { condominiumTitle: condominio, condominiumId: idCond, condominiumObservation: observacao });
+
+    this.pendingReadingsCount = this.countPendingReadings();
     this.isLoading = false;
   }
 
@@ -86,22 +92,17 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
         isReadingPending(item.leitura_atual_gas) ||
         (item.imagem === 'sim' &&
           (isPhotoPending(item.imagem_atual_agua, item.leitura_atual_agua) ||
-            isPhotoPending(item.imagem_atual_gas, item.leitura_atual_gas)))
+           isPhotoPending(item.imagem_atual_gas, item.leitura_atual_gas)))
       )
       .map(({ economia }) => `${economia}`);
   }
 
   private async getUnprocessedUnits(): Promise<string[]> {
-    const unprocessedUnits = new Set(
-      [
-        ...(await this.storageService.getFailedReadingItems()),
-      ].map(({ idCond, economia }) => `${idCond}-${economia}`)
-    );
+    const failed = await this.storageService.getFailedReadingItems();
+    const failedSet = new Set(failed.map(({ idCond, economia }) => `${idCond}-${economia}`));
 
     return this.filteredApartments
-      .filter(({ idCond, economia }) => {
-        return unprocessedUnits.has(`${idCond}-${economia}`)
-      })
+      .filter(({ idCond, economia }) => failedSet.has(`${idCond}-${economia}`))
       .map(({ idCond, economia }) => `${idCond}-${economia}`);
   }
 
@@ -117,29 +118,85 @@ export class SavingsComponent implements CanComponentDeactivate, OnInit {
   protected async readingChanged(selectedItem: any, { type, value }: { type: string; value: number | string }): Promise<void> {
     if (value !== null && value !== undefined && value !== '') {
       this.hasChanges = true;
+  
       const requestJson = {
         idCond: selectedItem.idCond,
         economia: selectedItem.economia,
         leitura_atual: value,
-        tipo_consumo: type
+        tipo_consumo: type  // aqui pode ser 'agua', 'aguaq' ou 'gas'
       };
-
+  
       const response = await this.savingsService.updateSaving(requestJson);
-
+  
       if (response !== 'sucesso"sucesso"') {
         await this.storageService.addFailedReading(requestJson);
+        this.failedReadingsCount++;
         this.showMessage('error', 'Erro', 'Falha de rede! Leitura armazenada para sincronizar mais tarde.');
       } else {
-        const condo = this.condominiumValues.find(condo => condo.economia === selectedItem.economia);
+        const condo = this.condominiumValues.find(c => c.economia === selectedItem.economia);
         if (condo) {
-          condo[`leitura_atual_${type}`] = value;
+          condo[`leitura_atual_${type}`] = value; // aqui funciona para 'aguaq' também
         }
         await this.storageService.addFinishedReading(requestJson);
+        this.successfulReadingsCount++;
       }
     }
+  
+    this.pendingReadingsCount = this.countPendingReadings();
+  }
+  
+
+  private countPendingReadings(): number {
+    const isPending = (value: any) =>
+      value === null || value === undefined || value === '' || value === 'pendente';
+  
+    return this.condominiumValues.filter(item =>
+      isPending(item.leitura_atual_agua) ||
+      isPending(item.leitura_atual_aguaq) ||
+      isPending(item.leitura_atual_gas)
+    ).length;
+  }
+  
+
+  /** ✅ Novo método para abrir modal de leituras com falha via botão */
+  protected async openFailedReadingsModal(): Promise<void> {
+    const failedItems = await this.storageService.getFailedReadingItems();
+    const unprocessedUnits = failedItems.map(item => `${item.idCond}-${item.economia}`);
+    this.failedReadingdsModal.open(unprocessedUnits);
   }
 
   private showMessage(severity: 'error' | 'success', summary: string, detail: string): void {
     this.messageService.add({ severity, summary, detail, life: 1000 });
   }
+
+  protected showMultipleBlocks(item: any): boolean {
+    const blocks = [
+      item['leitura_atual_agua'] !== 'nao_possui',
+      item['leitura_atual_aguaq'] !== 'nao_possui',
+      item['leitura_atual_gas'] !== 'nao_possui'
+    ];
+    return blocks.filter(Boolean).length > 1;
+  }
+
+  hasOneBlock(item: any): boolean {
+    return this.countBlocks(item) === 1;
+  }
+  
+  hasTwoBlocks(item: any): boolean {
+    return this.countBlocks(item) === 2;
+  }
+  
+  hasThreeBlocks(item: any): boolean {
+    return this.countBlocks(item) === 3;
+  }
+  
+  private countBlocks(item: any): number {
+    let count = 0;
+    if (item['leitura_atual_agua'] !== 'nao_possui') count++;
+    if (item['leitura_atual_gas'] !== 'nao_possui') count++;
+    if (item['leitura_anterior_aguaq'] !== 'nao_possui') count++;
+    return count;
+  }
+  
+  
 }

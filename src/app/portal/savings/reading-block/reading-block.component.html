@@ -1,50 +1,45 @@
-<div 
-    class="flex flex-column align-items-center gap-2 text-center">
-    <!-- Simbolo da Agua ou do fogo -->
+<div class="flex flex-column align-items-center gap-2 text-center">
+    <!-- Ícone do tipo de leitura -->
     <img
-        [src]="type === 'agua' ? './assets/images/water.png' : './assets/images/fire.png'"
-        height="75px"
-        alt="Imagem de consumo" />
+      [src]="getIcon()"
+      height="75px"
+      alt="Imagem de consumo" />
+  
     <!-- Informando qual é o tipo de leitura -->
     <div>
-        <span 
-            class="font-medium text-secondary text-sm">
-            Leitura de {{ type === 'agua' ? 'Água' : 'Gás' }}
-        </span>
+      <span class="font-medium text-secondary text-sm">
+        Leitura de {{ getLabel() }}
+      </span>
     </div>
+  
     <!-- Informando qual é a leitura anterior -->
-    <div
-        class="surface-100 p-1"
-        style="border-radius: 30px">
-        <span 
-            class="text-900 font-medium text-sm">
-            Leitura Anterior: {{ previousReading }}
-        </span>
+    <div class="surface-100 p-1" style="border-radius: 30px">
+      <span class="text-900 font-medium text-sm">
+        Leitura Anterior: {{ previousReading }}
+      </span>
     </div>
+  
     <!-- Tag para informar quando o bloco estiver pendente -->
     <p-tag
-        *ngIf="currentReading == null"
-        class="mt-1"
-        severity="danger"
-        value="Pendente">
+      *ngIf="currentReading == null"
+      class="mt-1"
+      severity="danger"
+      value="Pendente">
     </p-tag>
-
-    <!-- Adicionando classe ao p-floatLabel para controle -->
-    <div
-        class="input-container mt-4">
-        <p-floatLabel>
-            <input
-                id="{{ type }}-reading"
-                type="number"
-                pInputText
-                inputmode="numeric"
-                style="width: 8em;"
-                (blur)="onReadingChanged(currentReading)"
-                [(ngModel)]="currentReading" />
-            <label 
-                for="{{ type }}-reading">
-                Leitura Atual
-            </label>
-        </p-floatLabel>
+  
+    <!-- Input para leitura atual -->
+    <div class="input-container mt-4">
+      <p-floatLabel>
+        <input
+          id="{{ type }}-reading"
+          type="number"
+          pInputText
+          inputmode="numeric"
+          style="width: 8em;"
+          (blur)="onReadingChanged(currentReading)"
+          [(ngModel)]="currentReading" />
+        <label for="{{ type }}-reading">Leitura Atual</label>
+      </p-floatLabel>
     </div>
-</div>
+  </div>
+  
